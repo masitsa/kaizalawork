@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+</head>
+<body>
+<div id="arr"></div>
+    <div ></div>
+      <script type="text/javascript">
+        var arr = [
+            {"Category":"Meat", "Item":"Cow"},
+            {"Category":"Meat", "Item":"Camel"},
+            {"Category":"Meat", "Item":"Goat"},
+            {"Category":"Liquid", "Item":"Water"},
+            {"Category":"Liquid", "Item":"Milk"},
+            {"Category":"Liquid", "Item":"Juice"},
+            {"Category":"Cerials", "Item":"Maize"},
+            {"Category":"Cerials", "Item":"Beans"},
+            {"Category":"Student", "Item":"Boys"}
+        ];
+        var _arr = [];
+        arr.map(function (obj){
+            _arr.push(obj.Category);
+        });
+
+        _arr = [...new Set(_arr)]
+        var btn = "";
+
+        _arr.map(function(cat) {
+            btn += '<button id='+cat+'>' + cat +'</button>';
+        });
+        
+        document.getElementById("arr").innerHTML =btn;
+        document.getElementById("arr").addEventListener("click", function(evt) {
+            arr.map(function(ar) {
+                if(ar.Category == evt.target.innerText) {
+                    console.log(ar.Item);
+                } 
+            });
+        });
+
+    </script>
+</body>
+</html>
