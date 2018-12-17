@@ -5,8 +5,7 @@
     "isAnonymous": false,
     "isResponseAppended": true,
     "isLocationRequested": false,
-    "questions": [
-        {
+    "questions": [{
             "title": "Age",
             "type": "Numeric"
         },
@@ -24,7 +23,7 @@
         },
         {
             "title": "Gender",
-            "type":"SingleSelect",
+            "type": "SingleSelect",
             "options": [{
                     "title": "Male"
                 },
@@ -42,24 +41,23 @@
             "type": "Text"
         },
         {
-          "title": "Location",
-          "type": "Location"
+            "title": "Location",
+            "type": "Location"
         },
         {
-          "title": "Response Time",
-          "type": "DateTime"
+            "title": "Response Time",
+            "type": "DateTime"
         },
         {
-          "title": "Region",
-          "type": "Text"
-        },        
-        {
-            "title": "salesArea",
+            "title": "Region",
             "type": "Text"
         },
-          
         {
-            "title": "cluster",
+            "title": "Sales Area",
+            "type": "Text"
+        },
+        {
+            "title": "Cluster",
             "type": "Text"
         }
     ]
