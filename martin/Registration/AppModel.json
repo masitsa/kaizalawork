@@ -5,7 +5,8 @@
     "isAnonymous": false,
     "isResponseAppended": true,
     "isLocationRequested": false,
-    "questions": [{
+    "questions": [
+        {
             "title": "Age",
             "type": "Numeric"
         },
@@ -41,16 +42,16 @@
             "type": "Text"
         },
         {
-            "title": "Location",
-            "type": "Location"
+          "title": "Location",
+          "type": "Location"
         },
         {
-            "title": "Response Time",
-            "type": "DateTime"
+          "title": "Response Time",
+          "type": "DateTime"
         },
         {
-            "title": "Region",
-            "type": "Text"
+          "title": "Region",
+          "type": "Text"
         },
         {
             "title": "Sales Area",

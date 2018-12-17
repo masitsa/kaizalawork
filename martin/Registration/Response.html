@@ -56,7 +56,7 @@
         function getRegions(){
             var _region = "";
             var array = [];            
-            var regionOptions = '<option value="">-Pick A Region-</option>';
+            var select = '<option value="">-Pick A Region-</option>';
             var xhttp = new XMLHttpRequest();
             var url = "https://nanyukiappfactory.azurewebsites.net/safaricom/get-regions";
             xhttp.onreadystatechange = function () {
@@ -69,20 +69,15 @@
                             var region = currentObject.Region;
                             if(array.indexOf(region) == -1) {
                                 array.push(region);
-                                regionOptions += '<option value="' + region + '">' + region + '</option>';
+                                select += '<option value="' + region + '">' + region + '</option>';
                             }                               
                         }  
                     } catch (e) {
                         
                     }
                 }
-                //add the options to region select element
-                document.getElementById("Region").innerHTML = regionOptions;
-
-                //
+                document.getElementById("Region").innerHTML = select;
                 document.getElementById("Region").addEventListener('change', function(evt) {
-                    
-                    //pass the value of selected region
                     getSalesArea(evt.target.value);
                 });
                 
@@ -91,69 +86,49 @@
             xhttp.send();
         }
 
-        
-        //value of selected region option will be passed as an argument
-        function getSalesArea(selectedRegion) {
+        function getSalesArea(reg) {
             var _salesArea = "";
             var array = [];            
-            var salesAreaOptions= '<option value="">-Pick Sales Area-</option>';
+            var select = '<option value="">-Pick Sales Area-</option>';
             
             var responseObject = JSON.parse(_allResponse);
             for (var r = 0; r < responseObject.length; r++) {
                 var currentObject = responseObject[r];
-
-                //get sales area if accessed object region 
-                //and selected region are the same
-                if(selectedRegion == responseObject[r].Region) {
-
+                if(reg == responseObject[r].Region) {
                     var salesArea = currentObject['Sales_Area'];
-                    //if sales area does not exist add it to the array
-                    //and add it as an option
                     if(array.indexOf(salesArea) == -1) {
                         array.push(salesArea);
-                        salesAreaOptions += '<option value="' + salesArea + '">' + salesArea + '</option>';
+                        select += '<option value="' + salesArea + '">' + salesArea + '</option>';
                     }
                 } 
             }
-
-            //add the sales area options
-            document.getElementById("SalesArea").innerHTML = salesAreaOptions;
-
-            //decide what to do when a sales area option is selected
+            document.getElementById("SalesArea").innerHTML = select;
             document.getElementById("SalesArea").addEventListener('change', function(evt) {
-
-                //pass the selected value as an argument
                 getCluster(evt.target.value);
             });
             
         }
 
-        function getCluster(selectedArea) {
+        function getCluster(cls) {
             var _cluster = "";
             var array = [];            
-            var clusterOptions = '<option value="">-Pick Your Cluster-</option>';
+            var select = '<option value="">-Pick Your Cluster-</option>';
                     
             var responseObject = JSON.parse(_allResponse);
-
             for (var r = 0; r < responseObject.length; r++) {
                 var currentObject = responseObject[r];
-                //if the clicked area and the object area are the same
-                //get cluster and push it into the array
-                if(selectedArea== responseObject[r].Sales_Area) {
+                if(cls == responseObject[r].Sales_Area) {
                     var cluster = currentObject.Cluster;
-
-                    //if cluster does not exist and it to the array
                     if(array.indexOf(cluster) == -1) {
                         array.push(cluster);
-                        clusterOptions += '<option value="' + cluster + '">' + cluster + '</option>';
+                        select += '<option value="' + cluster + '">' + cluster + '</option>';
                     }
                 }   
             }  
-            document.getElementById("Cluster").innerHTML = clusterOptions;          
+            document.getElementById("Cluster").innerHTML = select;          
         }
 
         function onPageLoad() {
-            //getRegions();
             // Register for Android h/w back press event
             KASClient.App.registerHardwareBackPressCallback(function () {
                 KASClient.App.dismissCurrentScreen();
@@ -476,7 +451,8 @@
                             KASClient.UI.addElement(options, fieldInput);
                         }
                     } else {
-                        if (fieldTitle == "Region") {
+                        switch (fieldTitle) {
+                            case "Region":
                                 var fieldInput = KASClient.UI.getElement("select");
                                 fieldInput.className = "comment-input";
                                 fieldInput.id = compressedTitle;
@@ -493,9 +469,10 @@
                                 fieldInput.addEventListener("change", function (event) {
                                     invalidateFooter();
                                 });
-                                }else if(fieldTitle == "Sales Area"){
+                                break;
 
-                            var fieldInput = KASClient.UI.getElement("select");
+                            case "Sales Area":
+                                var fieldInput = KASClient.UI.getElement("select");
                                 fieldInput.className = "comment-input";
                                 fieldInput.id = compressedTitle;
 
@@ -511,8 +488,9 @@
                                 fieldInput.addEventListener("change", function (event) {
                                     invalidateFooter();
                                 });
-                           } else if(fieldTitle == "Cluster"){
+                                break;
 
+                            case "Cluster":
                                 var fieldInput = KASClient.UI.getElement("select");
                                 fieldInput.type = fieldInputType;
                                 fieldInput.className = "comment-input";
@@ -530,7 +508,8 @@
                                 fieldInput.addEventListener("change", function (event) {
                                     invalidateFooter();
                                 });
-                            }else{
+                                break;
+                            default:
                                 var fieldInput = KASClient.UI.getElement("input");
                                 fieldInput.type = fieldInputType;
                                 fieldInput.className = "comment-input";
@@ -548,8 +527,6 @@
                                 fieldInput.addEventListener("input", function (event) {
                                     invalidateFooter();
                                 });
-                            }
-                               
                         }
                         
                     }
@@ -560,10 +537,9 @@
                     //Add items to page 1
                     KASClient.UI.addElement(fieldDiv, pageOneDiv);
                 }
-
-                //fetch and populate the region data after loading elements
-                getRegions();
-            }
+            }   
+            getRegions();
+        }
 
         function addImage(title, fieldInput) {
 

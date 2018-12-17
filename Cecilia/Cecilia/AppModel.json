@@ -5,18 +5,23 @@
     "isAnonymous": false,
     "isResponseAppended": true,
     "isLocationRequested": false,
-    "questions": [{
+    "questions": [
+        {
             "title": "Age",
             "type": "Numeric"
+            
         },
         {
             "title": "Email",
             "type": "Text"
+
         },
         {
             "title": "Date of Birth",
             "type": "DateTime"
+           
         },
+       
         {
             "title": "Profile Image",
             "type": "Image"
@@ -29,9 +34,9 @@
                 },
                 {
                     "title": "Female"
-                }
-            ]
+                }]
         },
+        
         {
             "title": "Name",
             "type": "Text"
@@ -41,24 +46,25 @@
             "type": "Text"
         },
         {
-            "title": "Location",
-            "type": "Location"
+          "title": "Location",
+          "type": "Location"
         },
         {
-            "title": "Response Time",
-            "type": "DateTime"
+          "title": "Response Time",
+          "type": "DateTime"
         },
         {
             "title": "Region",
             "type": "Text"
         },
         {
-            "title": "Sales Area",
-            "type": "Text"
+            "title": "Sales Area"
+            
         },
         {
-            "title": "Cluster",
-            "type": "Text"
+            "title": "Cluster"
+            
         }
+
     ]
 }

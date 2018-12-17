@@ -1,9 +1,9 @@
-{
-    "id": "com.nanyukiaf.moses.registration",
+ {
+    "id": "com.nanyuki.martin.registration",
     "schemaVersion": 1,
-    "version": "5",
-    "minorVersion": 2,
-    "providerName": "Moses",
+    "version": 37,
+    "minorVersion": 1,
+    "providerName": "Martin",
     "displayName": "Registration",
     "description": "Registration",
     "icon": "profile.png",
