@@ -75,6 +75,7 @@
                     } catch (e) {
                         
                     }
+                    
                 }
                 
                 document.getElementById("Region").innerHTML = select;
@@ -123,13 +124,14 @@
                         array.push(cluster);
                         select += '<option value="' + cluster + '">' + cluster + '</option>';
                     }
-                }   
+                }  
+                 
             }  
             document.getElementById("cluster").innerHTML = select;          
         }
 
         function onPageLoad() {
-            getRegions();
+           
             // Register for Android h/w back press event
             KASClient.App.registerHardwareBackPressCallback(function () {
                 KASClient.App.dismissCurrentScreen();
@@ -529,7 +531,7 @@
                                     invalidateFooter();
                                 });
                         }
-                        
+                         getRegions();
                     }
 
                     KASClient.UI.addElement(fieldTitleDiv, fieldDiv);

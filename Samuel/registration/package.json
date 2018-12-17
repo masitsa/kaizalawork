@@ -1,7 +1,7 @@
 {
     "id": "com.nanyuki.samuel.registration",
     "schemaVersion": 3,
-    "version": "15",
+    "version": "17",
     "minorVersion": 2,
     "providerName": "Samuel",
     "displayName": "Registration",
