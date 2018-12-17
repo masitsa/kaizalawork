@@ -1,5 +1,5 @@
 {
-    "title": "Registration",
+    "title": "Livestock Alert",
     "visibility": "All",
     "expiry": 0,
     "isAnonymous": false,
@@ -7,33 +7,60 @@
     "isLocationRequested": false,
     "questions": [
         {
-            "title": "Age",
-            "type": "Numeric"
-           
+            "title": "Livestock Number",
+            "type": "Text",
+            "isOptional": true
         },
         {
-            "title": "Email",
+            "title": "Livestock Location",
+            "type": "Numeric",
+            "isOptional": true
+        },
+        {
+            "title": "Livestock Date",
+            "type": "DateTime",
+            "isOptional": true
+        },
+        {
+            "title": "Measures Taken",
             "type": "Text"
-            
         },
         {
-            "title": "Profile Image",
+            "title": "Livestock Image",
             "type": "Image"
-            
         },
         {
-            "title": "Gender",
+            "title": "Herders Number",
+            "type": "Text"
+        },
+        {
+            "title": "Herders Attitude",
+            "type": "Text"
+        },
+        {
+            "title": "Herders Equipment",
+            "type": "Text"
+        },
+        {
+            "title": "Region",
             "type": "SingleSelect",
-    
-                    "options": [{
-                    "title": "male"
+            "options": [{
+                    "title": "Nanyuki"
                 },
                 {
-                    "title": "Female"
+                    "title": "Meru"
+                },
+                {
+                    "title": "Karatina"
+                },
+                {
+                    "title": "Nyeri"
+                },
+                {
+                    "title": "Embu"
                 }
             ]
         },
-        
         {
             "title": "Name",
             "type": "Text"
@@ -49,20 +76,6 @@
         {
           "title": "Response Time",
           "type": "DateTime"
-        },
-       
-          {
-            "title": "Region",
-            "type": "text"
-           
-        },
-        {
-            "title": "salesArea",
-            "type": "text"
-        },
-        {
-            "title": "cluster",
-            "type": "text"
         }
     ]
 }
