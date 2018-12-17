@@ -47,88 +47,109 @@
         var imagesArray = [];
         var tempImage = "";
         var countImage = 0;
-        var _allResponse = "";
+        var _regions = "";
+        var _regionArea = "";
 
         // constants
         var TOTAL_PAGE = 3;
         var LOCATION_TIMEOUT = 10000;
-        
-        function getRegions(){
-            var _region = "";
-            var array = [];            
+
+        function getRegions() {
+            var array = [];
             var select = '<option value="">-Pick A Region-</option>';
             var xhttp = new XMLHttpRequest();
             var url = "https://nanyukiappfactory.azurewebsites.net/safaricom/get-regions";
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     try {
-                        _allResponse = this.responseText;
-                        var responseObject = JSON.parse(_allResponse);
+                        var response = this.responseText;
+                        var responseObject = JSON.parse(response);
                         for (var r = 0; r < responseObject.length; r++) {
                             var currentObject = responseObject[r];
                             var region = currentObject.Region;
-                            if(array.indexOf(region) == -1) {
+                            if (array.indexOf(region) == -1) {
                                 array.push(region);
                                 select += '<option value="' + region + '">' + region + '</option>';
-                            }                               
-                        }  
+                            }
+                        }
+                        document.getElementById("Region").innerHTML = select;
+                        document.getElementById("Region").addEventListener("change", function (
+                            e) {
+                            var selectSales = '<option value="">-Pick A Sales Area-</option>';
+                            var d = e.target.value;
+                            var sales = [];
+                            for (let i = 0; i < responseObject.length; i++) {
+                                if (d == responseObject[i].Region) {
+                                    var a = responseObject[i].Sales_Area;
+                                    if (sales.indexOf(a) == -1) {
+                                        sales.push(a);
+                                        selectSales += '<option value="' + a + '">' + a +
+                                            '</option>';
+                                    }
+
+                                }
+                            }
+                            document.getElementById("salesArea").innerHTML = selectSales;
+
+                            document.getElementById("salesArea").addEventListener("change",
+                                function (e) {
+                                    var selectCluster =
+                                        '<option value="">-Pick A Sales Area-</option>';
+                                    var Sales_Area = e.target.value;
+                                    var clusterArr = [];
+                                    for (let i = 0; i < responseObject.length; i++) {
+                                        if (Sales_Area == responseObject[i].Sales_Area) {
+                                            var cluster = responseObject[i].Cluster;
+                                            if (clusterArr.indexOf(cluster) == -1) {
+                                                clusterArr.push(cluster);
+                                                selectCluster += '<option value="' + cluster +
+                                                    '">' + cluster +
+                                                    '</option>';
+                                            }
+                                        }
+
+                                    }
+
+                                    document.getElementById("cluster").innerHTML =
+                                        selectCluster;
+                                });
+                        });
                     } catch (e) {
-                        
+
                     }
+
                 }
-                document.getElementById("Region").innerHTML = select;
-                document.getElementById("Region").addEventListener('change', function(evt) {
-                    getSalesArea(evt.target.value);
-                });
-                
+
             };
             xhttp.open("GET", url, true);
             xhttp.send();
+
         }
 
-        function getSalesArea(reg) {
-            var _salesArea = "";
-            var array = [];            
-            var select = '<option value="">-Pick Sales Area-</option>';
-            
-            var responseObject = JSON.parse(_allResponse);
-            for (var r = 0; r < responseObject.length; r++) {
-                var currentObject = responseObject[r];
-                if(reg == responseObject[r].Region) {
-                    var salesArea = currentObject['Sales_Area'];
-                    if(array.indexOf(salesArea) == -1) {
-                        array.push(salesArea);
-                        select += '<option value="' + salesArea + '">' + salesArea + '</option>';
-                    }
-                } 
+        function JoinedOrNot() {
+            var kenya = document.getElementById("Region");
+            if (kenya.value == "Coast") {
+                _regionArea = 1;
+
+            } else if (kenya.value == "Mt kenya") {
+                _regionArea = 2;
+
+            } else if (kenya.value == "nairobi east") {
+                _regionArea = 3;
+
+            } else if (kenya.value == "nairobi west") {
+                _regionArea = 4;
+
+            } else if (kenya.value == "rift") {
+
+            } else {
+
             }
-            document.getElementById("SalesArea").innerHTML = select;
-            document.getElementById("SalesArea").addEventListener('change', function(evt) {
-                getCluster(evt.target.value);
-            });
-            
         }
 
-        function getCluster(cls) {
-            var _cluster = "";
-            var array = [];            
-            var select = '<option value="">-Pick Your Cluster-</option>';
-                    
-            var responseObject = JSON.parse(_allResponse);
-            for (var r = 0; r < responseObject.length; r++) {
-                var currentObject = responseObject[r];
-                if(cls == responseObject[r].Sales_Area) {
-                    var cluster = currentObject.Cluster;
-                    if(array.indexOf(cluster) == -1) {
-                        array.push(cluster);
-                        select += '<option value="' + cluster + '">' + cluster + '</option>';
-                    }
-                }   
-            }  
-            document.getElementById("Cluster").innerHTML = select;          
-        }
 
         function onPageLoad() {
+
             // Register for Android h/w back press event
             KASClient.App.registerHardwareBackPressCallback(function () {
                 KASClient.App.dismissCurrentScreen();
@@ -451,84 +472,81 @@
                             KASClient.UI.addElement(options, fieldInput);
                         }
                     } else {
-                        switch (fieldTitle) {
-                            case "Region":
-                                var fieldInput = KASClient.UI.getElement("select");
-                                fieldInput.className = "comment-input";
-                                fieldInput.id = compressedTitle;
+                        if (fieldTitle == "Region") {
+                            var fieldInput = KASClient.UI.getElement("select");
+                            fieldInput.className = "comment-input";
+                            fieldInput.id = compressedTitle;
 
-                                //dependancy for IOS for just adding padding
-                                if (KASClient.getPlatform() == KASClient.Platform.iOS) {
-                                    KASClient.UI.addCSS(fieldInput, {
-                                        "padding-left": "13pt"
-                                    });
-                                }
-
-                                fieldInput.innerHTML = '<option>-Pick A Region-</option>';
-
-                                fieldInput.addEventListener("change", function (event) {
-                                    invalidateFooter();
+                            //dependancy for IOS for just adding padding
+                            if (KASClient.getPlatform() == KASClient.Platform.iOS) {
+                                KASClient.UI.addCSS(fieldInput, {
+                                    "padding-left": "13pt"
                                 });
-                                break;
+                            }
 
-                            case "Sales Area":
-                                var fieldInput = KASClient.UI.getElement("select");
-                                fieldInput.className = "comment-input";
-                                fieldInput.id = compressedTitle;
+                            fieldInput.innerHTML = "<option>-Pick A Region-</option>";
 
-                                //dependancy for IOS for just adding padding
-                                if (KASClient.getPlatform() == KASClient.Platform.iOS) {
-                                    KASClient.UI.addCSS(fieldInput, {
-                                        "padding-left": "13pt"
-                                    });
-                                }
+                            fieldInput.addEventListener("change", function (event) {
+                                JoinedOrNot();
+                                invalidateFooter();
+                            });
 
-                                fieldInput.innerHTML = '<option>-Pick A Sales Area-</option>';
 
-                                fieldInput.addEventListener("change", function (event) {
-                                    invalidateFooter();
+                        } else if (fieldTitle == "salesArea") {
+                            var fieldInput = KASClient.UI.getElement("select");
+                            fieldInput.className = "comment-input";
+                            fieldInput.id = compressedTitle;
+
+                            //dependancy for IOS for just adding padding
+                            if (KASClient.getPlatform() == KASClient.Platform.iOS) {
+                                KASClient.UI.addCSS(fieldInput, {
+                                    "padding-left": "13pt"
                                 });
-                                break;
+                            }
 
-                            case "Cluster":
-                                var fieldInput = KASClient.UI.getElement("select");
-                                fieldInput.type = fieldInputType;
-                                fieldInput.className = "comment-input";
-                                fieldInput.id = compressedTitle;
+                            fieldInput.innerHTML = "<select><option>-Pick A Sales Area-</option></select>";
 
-                                //dependancy for IOS for just adding padding
-                                if (KASClient.getPlatform() == KASClient.Platform.iOS) {
-                                    KASClient.UI.addCSS(fieldInput, {
-                                        "padding-left": "13pt"
-                                    });
-                                }
+                            fieldInput.addEventListener("change", function (event) {
+                                invalidateFooter();
+                            });
+                        } else if (fieldTitle == "cluster") {
+                            var fieldInput = KASClient.UI.getElement("select");
+                            fieldInput.type = fieldInputType;
+                            fieldInput.className = "comment-input";
+                            fieldInput.id = compressedTitle;
 
-                                fieldInput.innerHTML = '<option>-Pick Your Cluster-</option>';
-
-                                fieldInput.addEventListener("change", function (event) {
-                                    invalidateFooter();
+                            //dependancy for IOS for just adding padding
+                            if (KASClient.getPlatform() == KASClient.Platform.iOS) {
+                                KASClient.UI.addCSS(fieldInput, {
+                                    "padding-left": "13pt"
                                 });
-                                break;
-                            default:
-                                var fieldInput = KASClient.UI.getElement("input");
-                                fieldInput.type = fieldInputType;
-                                fieldInput.className = "comment-input";
-                                fieldInput.id = compressedTitle;
+                            }
 
-                                //dependancy for IOS for just adding padding
-                                if (KASClient.getPlatform() == KASClient.Platform.iOS) {
-                                    KASClient.UI.addCSS(fieldInput, {
-                                        "padding-left": "13pt"
-                                    });
-                                }
+                            fieldInput.innerHTML = "<select><option>-Pick A Cluster-</option></select>";
 
-                                fieldInput.placeholder = _strings["strTapToEnter"];
+                            fieldInput.addEventListener("change", function (event) {
+                                invalidateFooter();
+                            });
+                        } else {
+                            var fieldInput = KASClient.UI.getElement("input");
+                            fieldInput.type = fieldInputType;
+                            fieldInput.className = "comment-input";
+                            fieldInput.id = compressedTitle;
 
-                                fieldInput.addEventListener("input", function (event) {
-                                    invalidateFooter();
+                            //dependancy for IOS for just adding padding
+                            if (KASClient.getPlatform() == KASClient.Platform.iOS) {
+                                KASClient.UI.addCSS(fieldInput, {
+                                    "padding-left": "13pt"
                                 });
+                            }
+
+                            fieldInput.placeholder = _strings["strTapToEnter"];
+
+                            fieldInput.addEventListener("input", function (event) {
+                                invalidateFooter();
+                            });
                         }
-                        
+
                     }
 
                     KASClient.UI.addElement(fieldTitleDiv, fieldDiv);
@@ -537,7 +555,8 @@
                     //Add items to page 1
                     KASClient.UI.addElement(fieldDiv, pageOneDiv);
                 }
-            }   
+            }
+
             getRegions();
         }
 

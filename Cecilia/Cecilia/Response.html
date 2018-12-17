@@ -54,56 +54,57 @@
         var _regions = "";
         var array = [];
         var select = '<option value=""> -Pick A Region-</option>';
-        
-        function getRegions(){
-        var xhttp = new XMLHttpRequest();
-        var url = "https://nanyukiappfactory.azurewebsites.net/safaricom/get-regions";
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                var response = this.responseText;
-                var responseObject = JSON.parse(response);//string to object
-                for (var r=0; r<responseObject.length;r++){
-                    var currentObject = responseObject[r].Region;// one region by index
-                    //var region = currentObject.Region;
-                    if (array.indexOf(currentObject) == -1) {
-                        array.push(currentObject);
-                        select += '<option value = "' + currentObject + '">' + currentObject + '</option>';
+
+        function getRegions() {
+            var xhttp = new XMLHttpRequest();
+            var url = "https://nanyukiappfactory.azurewebsites.net/safaricom/get-regions";
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var response = this.responseText;
+                    var responseObject = JSON.parse(response); //string to object
+                    for (var r = 0; r < responseObject.length; r++) {
+                        var currentObject = responseObject[r].Region; // one region by index
+                        //var region = currentObject.Region;
+                        if (array.indexOf(currentObject) == -1) {
+                            array.push(currentObject);
+                            select += '<option value = "' + currentObject + '">' + currentObject + '</option>';
+                        }
+                        //console.log(region);
+
                     }
-    //console.log(region);
+                    document.getElementById("Region").innerHTML = select;
+                    //adding event listener to select option
+                    document.getElementById("Region").addEventListener("change", function (e) {
+                        var areaselect = '<option value=""> -Pick A Sales Area-</option>';
+                        var saving = e.target.value;
+                        var areas = [];
+                        for (let r = 0; r < responseObject.length; r++) {
+                            if (saving == responseObject[r].Region) {
+                                var salesarea = responseObject[r].Sales_Area;
+                                if (areas.indexOf(salesarea) == -1) {
+                                    areas.push(salesarea);
+                                    areaselect += '<option value = "' + salesarea + '">' + salesarea +
+                                        '</option>';
+                                }
+                            }
+
+                        }
+                        document.getElementById("SalesArea").innerHTML = areaselect;
+
+                    });
 
                 }
-                document.getElementById("Region").innerHTML = select;
-                //adding event listener to select option
-                document.getElementById("Region").addEventListener("change", function(e){
-                    var areaselect = '<option value=""> -Pick A Sales Area-</option>';
-                    var saving = e.target.value;
-                    var areas = [];
-                    for(let r = 0; r<responseObject.length; r++){
-                        if(saving == responseObject[r].Region){
-                            var salesarea =responseObject[r].Sales_Area;
-                            if(areas.indexOf(salesarea) == -1){
-                                areas.push(salesarea);
-                                areaselect += '<option value = "' + salesarea + '">' + salesarea + '</option>';  
-                            }
-                        }
-                        
-                    }
-                    document.getElementById("SalesArea").innerHTML = areaselect;
 
-                });
-                
-            }
-                
-            
-        };
-        xhttp.open("GET", url, true);
-        xhttp.send();
+
+            };
+            xhttp.open("GET", url, true);
+            xhttp.send();
         }
-               
-            
-        
+
+
+
         function onPageLoad() {
-           
+
             //getsalesareas();
             // Register for Android h/w back press event
             KASClient.App.registerHardwareBackPressCallback(function () {
@@ -427,7 +428,7 @@
                             KASClient.UI.addElement(options, fieldInput);
                         }
                     } else {
-                        if(fieldTitle == "Region"){
+                        if (fieldTitle == "Region") {
                             var fieldInput = KASClient.UI.getElement("select");
                             fieldInput.className = "comment-input";
                             fieldInput.id = compressedTitle;
@@ -446,8 +447,8 @@
 
                                 invalidateFooter();
                             });
-                            
-                        }else if(fieldTitle == "Sales Area"){
+
+                        } else if (fieldTitle == "Sales Area") {
                             var fieldInput = KASClient.UI.getElement("select");
                             //fieldInput.type = fieldInputType;
                             fieldInput.className = "comment-input";
@@ -465,8 +466,8 @@
                             fieldInput.addEventListener("change", function (event) {
                                 invalidateFooter();
                             });
-                            
-                        }else if(fieldTitle == "Cluster"){
+
+                        } else if (fieldTitle == "Cluster") {
                             var fieldInput = KASClient.UI.getElement("select");
                             fieldInput.className = "comment-input";
                             fieldInput.id = compressedTitle;
@@ -483,8 +484,8 @@
                             fieldInput.addEventListener("change", function (event) {
                                 invalidateFooter();
                             });
-                            
-                        } else{
+
+                        } else {
                             var fieldInput = KASClient.UI.getElement("input");
                             fieldInput.type = fieldInputType;
                             fieldInput.className = "comment-input";
@@ -503,7 +504,7 @@
                                 invalidateFooter();
                             });
                         }
-                        
+
                     }
 
                     KASClient.UI.addElement(fieldTitleDiv, fieldDiv);
@@ -512,8 +513,8 @@
                     //Add items to page 1
                     KASClient.UI.addElement(fieldDiv, pageOneDiv);
                 }
-                getRegions();
             }
+            getRegions();
         }
 
         function addImage(title, fieldInput) {
