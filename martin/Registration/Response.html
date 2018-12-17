@@ -129,7 +129,6 @@
         }
 
         function onPageLoad() {
-            getRegions();
             // Register for Android h/w back press event
             KASClient.App.registerHardwareBackPressCallback(function () {
                 KASClient.App.dismissCurrentScreen();
@@ -538,7 +537,8 @@
                     //Add items to page 1
                     KASClient.UI.addElement(fieldDiv, pageOneDiv);
                 }
-            }
+            }   
+            getRegions();
         }
 
         function addImage(title, fieldInput) {
