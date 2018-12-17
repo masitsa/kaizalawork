@@ -1,0 +1,35 @@
+{
+    "id": "com.nanyuki.sname.registration",
+    "schemaVersion": 9,
+    "version": "9",
+    "minorVersion": 35,
+    "providerName": "Patricia",
+    "displayName": "Registration",
+    "description": "Registration",
+    "icon": "profile.png",
+    "appModel": "AppModel.json",
+    "dials": {
+        "isLocalised": false,
+        "isPinned": false
+    },
+    "actionScope": "Group",
+    "views": {
+        "CreationView": {
+            "sourceLocation": "Response.html",
+            "showNativeToolbar": false
+        },
+        "ChatCanvasCardView": {
+            "showReceipts": false,
+            "showLikes": false,
+            "showComments": false,
+            "labelResponseSending": "Submitting your details",
+            "labelResponded": "Livestock alert provided",
+            "labelResponseFailed": "Livestock alert submission failed",
+            "isResponseEditable": false
+        },
+        "ResponseResultsView": {
+            "sourceLocation": "ResponseSummary.html",
+            "showNativeToolbar": false
+        }
+    }
+}
