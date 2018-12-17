@@ -1,16 +1,19 @@
 {
     "strMiniAppTitle": "Registration",
-    "Age": "Your Age",
+    "Age": "Age",
     "Email": "Email",
-    "Date of Birth": "Date of Birth",
-    "strTapToEnter": "Tap to enter",
     "Profile Image": "Profile Image",
+    "strTapToEnter": "Tap to enter",
     "Gender": "Gender",
-    "Male": "Male",
+    "male": "male",
     "Female": "Female",
     "Name": "Name",
-    "Phone": "Phone Number",
+    "Phone": "Phone",
     "Location": "Location",
+    "Response Time": "Response Time",
+    "Region": "Region",
+    "salesArea": "Sales Area",
+    "cluster": "Cluster",
     "strMiniAppYourDetails": "Your Details",
     "strNoLocationLabel": "Due to poor network connectivity, your location could not be fetched",
     "strRefreshLabel": "REFRESH",
@@ -20,10 +23,5 @@
     "strProgressTextLabel": "{0} of {1}",
     "strConnectGroupName": "Need To change",
     "strMiniAppHeaderTimeLabel": "Created by you at {0}",
-    "strSendResponseLabel": "SUBMIT",
-    "Response Time": "Response Time",
-    "Region": "Region",
-    "Sales Area": "Sales Area",
-    "Cluster": "Cluster"
-
+    "strSendResponseLabel": "SUBMIT"
 }

@@ -54,7 +54,6 @@
         var LOCATION_TIMEOUT = 10000;
         
         function getRegions(){
-            var _region = "";
             var array = [];            
             var select = '<option value="">-Pick A Region-</option>';
             var xhttp = new XMLHttpRequest();
@@ -67,6 +66,7 @@
                         for (var r = 0; r < responseObject.length; r++) {
                             var currentObject = responseObject[r];
                             var region = currentObject.Region;
+                            //Removes repetition
                             if(array.indexOf(region) == -1) {
                                 array.push(region);
                                 select += '<option value="' + region + '">' + region + '</option>';
@@ -76,7 +76,9 @@
                         
                     }
                 }
+                
                 document.getElementById("Region").innerHTML = select;
+                
                 document.getElementById("Region").addEventListener('change', function(evt) {
                     getSalesArea(evt.target.value);
                 });
@@ -87,7 +89,6 @@
         }
 
         function getSalesArea(reg) {
-            var _salesArea = "";
             var array = [];            
             var select = '<option value="">-Pick Sales Area-</option>';
             
@@ -102,15 +103,14 @@
                     }
                 } 
             }
-            document.getElementById("SalesArea").innerHTML = select;
-            document.getElementById("SalesArea").addEventListener('change', function(evt) {
+            document.getElementById("salesArea").innerHTML = select;
+            document.getElementById("salesArea").addEventListener('change', function(evt) {
                 getCluster(evt.target.value);
             });
             
         }
 
         function getCluster(cls) {
-            var _cluster = "";
             var array = [];            
             var select = '<option value="">-Pick Your Cluster-</option>';
                     
@@ -125,10 +125,11 @@
                     }
                 }   
             }  
-            document.getElementById("Cluster").innerHTML = select;          
+            document.getElementById("cluster").innerHTML = select;          
         }
 
         function onPageLoad() {
+            getRegions();
             // Register for Android h/w back press event
             KASClient.App.registerHardwareBackPressCallback(function () {
                 KASClient.App.dismissCurrentScreen();
@@ -451,8 +452,8 @@
                             KASClient.UI.addElement(options, fieldInput);
                         }
                     } else {
-                        switch (fieldTitle) {
-                            case "Region":
+                        switch (true) {
+                            case fieldTitle == "Region":
                                 var fieldInput = KASClient.UI.getElement("select");
                                 fieldInput.className = "comment-input";
                                 fieldInput.id = compressedTitle;
@@ -471,7 +472,7 @@
                                 });
                                 break;
 
-                            case "Sales Area":
+                            case fieldTitle == "salesArea":
                                 var fieldInput = KASClient.UI.getElement("select");
                                 fieldInput.className = "comment-input";
                                 fieldInput.id = compressedTitle;
@@ -490,7 +491,7 @@
                                 });
                                 break;
 
-                            case "Cluster":
+                            case fieldTitle == "cluster":
                                 var fieldInput = KASClient.UI.getElement("select");
                                 fieldInput.type = fieldInputType;
                                 fieldInput.className = "comment-input";
@@ -505,7 +506,7 @@
 
                                 fieldInput.innerHTML = '<option>-Pick Your Cluster-</option>';
 
-                                fieldInput.addEventListener("change", function (event) {
+                                fieldInput.addEventListener("change", function (event) { 
                                     invalidateFooter();
                                 });
                                 break;
@@ -537,8 +538,7 @@
                     //Add items to page 1
                     KASClient.UI.addElement(fieldDiv, pageOneDiv);
                 }
-            }   
-            getRegions();
+            }
         }
 
         function addImage(title, fieldInput) {
