@@ -1,0 +1,62 @@
+{
+    "title": "Registration",
+    "visibility": "All",
+    "expiry": 0,
+    "isAnonymous": false,
+    "isResponseAppended": true,
+    "isLocationRequested": false,
+    "questions": [
+        {
+            "title": "Age",
+            "type": "Numeric"
+            
+        },
+        {
+            "title": "Email",
+            "type": "Text"
+
+        },
+        {
+            "title": "Date of Birth",
+            "type": "DateTime"
+           
+        },
+       
+        {
+            "title": "Profile Image",
+            "type": "Image"
+        },
+        
+        {
+            "title": "Name",
+            "type": "Text"
+        },
+        {
+            "title": "Phone",
+            "type": "Text"
+        },
+        {
+          "title": "Location",
+          "type": "Location"
+        },
+        {
+          "title": "Response Time",
+          "type": "DateTime"
+        },
+        {
+            "title": "Region",
+            "type": "Text"
+        },
+        {
+            "title": "salesArea",
+            "type": "Text"
+        },
+        {
+            "title": "Cluster",
+            "type": "Text"
+        }
+        
+
+
+    ]
+}
