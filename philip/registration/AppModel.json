@@ -56,11 +56,11 @@
         {
             "title": "salesArea",
             "type": "Text"
-          },
+        },
           
         {
             "title": "cluster",
             "type": "Text"
-          }
+        }
     ]
 }

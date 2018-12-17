@@ -276,6 +276,7 @@
             questionToAnswerMap[count] = JSON.stringify(_currentLocation);
             count++;
             questionToAnswerMap[count] = (new Date()).getTime();
+            alert(JSON.stringify(questionToAnswerMap));
             // Finally submit the response
             KASClient.Form.sumbitFormResponse(questionToAnswerMap, null, false, true /* showInChatCanvas */ );
         }
