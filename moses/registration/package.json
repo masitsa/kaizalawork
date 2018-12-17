@@ -2,7 +2,7 @@
     "id": "com.nanyukiaf.moses.registration",
     "schemaVersion": 1,
     "version": "5",
-    "minorVersion": 1,
+    "minorVersion": 2,
     "providerName": "Moses",
     "displayName": "Registration",
     "description": "Registration",
