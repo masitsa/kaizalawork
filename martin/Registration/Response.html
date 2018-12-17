@@ -452,8 +452,8 @@
                             KASClient.UI.addElement(options, fieldInput);
                         }
                     } else {
-                        switch (true) {
-                            case fieldTitle == "Region":
+                        switch (fieldTitle) {
+                            case "Region":
                                 var fieldInput = KASClient.UI.getElement("select");
                                 fieldInput.className = "comment-input";
                                 fieldInput.id = compressedTitle;
@@ -472,7 +472,7 @@
                                 });
                                 break;
 
-                            case fieldTitle == "Sales Area":
+                            case "Sales Area":
                                 var fieldInput = KASClient.UI.getElement("select");
                                 fieldInput.className = "comment-input";
                                 fieldInput.id = compressedTitle;
@@ -491,7 +491,7 @@
                                 });
                                 break;
 
-                            case fieldTitle == "Cluster":
+                            case "Cluster":
                                 var fieldInput = KASClient.UI.getElement("select");
                                 fieldInput.type = fieldInputType;
                                 fieldInput.className = "comment-input";
