@@ -1,5 +1,5 @@
 {
-    "title": "Registration",
+    "title": "Registration ya Mon",
     "visibility": "All",
     "expiry": 0,
     "isAnonymous": false,
@@ -33,7 +33,19 @@
                 }
             ]
         },
-        
+        {
+            "title": "Region",
+            "type": "Text"
+           
+        },
+        {
+            "title": "salesArea",
+            "type": "Text"
+        },
+        {
+            "title": "cluster",
+            "type": "Text"
+        },
         {
             "title": "Name",
             "type": "Text"
@@ -49,20 +61,6 @@
         {
           "title": "Response Time",
           "type": "DateTime"
-        },
-       
-          {
-            "title": "Region",
-            "type": "text"
-           
-        },
-        {
-            "title": "salesArea",
-            "type": "text"
-        },
-        {
-            "title": "cluster",
-            "type": "text"
         }
     ]
 }

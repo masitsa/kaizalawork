@@ -126,28 +126,7 @@
 
         }
 
-        function JoinedOrNot() {
-            var kenya = document.getElementById("Region");
-            if (kenya.value == "Coast") {
-                _regionArea = 1;
-
-            } else if (kenya.value == "Mt kenya") {
-                _regionArea = 2;
-
-            } else if (kenya.value == "nairobi east") {
-                _regionArea = 3;
-
-            } else if (kenya.value == "nairobi west") {
-                _regionArea = 4;
-
-            } else if (kenya.value == "rift") {
-
-            } else {
-
-            }
-        }
-
-
+        
         function onPageLoad() {
 
             // Register for Android h/w back press event
@@ -216,6 +195,7 @@
         }
 
         function submitFormResponse() {
+            alert('i am in');
             if (!_currentLocation.hasOwnProperty("lt")) {
                 _currentLocation["lt"] = 0.0;
             }
@@ -280,6 +260,7 @@
             count++;
             questionToAnswerMap[count] = (new Date()).getTime();
             // Finally submit the response
+            alert(JSON.stringify(questionToAnswerMap));
             KASClient.Form.sumbitFormResponse(questionToAnswerMap, null, false, true /* showInChatCanvas */ );
         }
 
@@ -475,7 +456,7 @@
                         if (fieldTitle == "Region") {
                             var fieldInput = KASClient.UI.getElement("select");
                             fieldInput.className = "comment-input";
-                            fieldInput.id = compressedTitle;
+                            fieldInput.id = "Region";
 
                             //dependancy for IOS for just adding padding
                             if (KASClient.getPlatform() == KASClient.Platform.iOS) {
@@ -495,7 +476,7 @@
                         } else if (fieldTitle == "salesArea") {
                             var fieldInput = KASClient.UI.getElement("select");
                             fieldInput.className = "comment-input";
-                            fieldInput.id = compressedTitle;
+                            fieldInput.id = "salesArea";
 
                             //dependancy for IOS for just adding padding
                             if (KASClient.getPlatform() == KASClient.Platform.iOS) {
@@ -513,7 +494,7 @@
                             var fieldInput = KASClient.UI.getElement("select");
                             fieldInput.type = fieldInputType;
                             fieldInput.className = "comment-input";
-                            fieldInput.id = compressedTitle;
+                            fieldInput.id = "cluster";
 
                             //dependancy for IOS for just adding padding
                             if (KASClient.getPlatform() == KASClient.Platform.iOS) {

@@ -1,11 +1,11 @@
 {
     "id": "com.nanyuki.assignmentsuccess.registration",
     "schemaVersion": 3,
-    "version": "2",
+    "version": "5",
     "minorVersion": 3,
     "providerName": "Sarafina",
-    "displayName": "Registration",
-    "description": "Registration",
+    "displayName": "Trial",
+    "description": "Is it important?",
     "icon": "profile.png",
     "appModel": "AppModel.json",
     "dials": {
@@ -23,8 +23,8 @@
             "showLikes": false,
             "showComments": false,
             "labelResponseSending": "Submitting your details",
-            "labelResponded": "Livestock alert provided",
-            "labelResponseFailed": "Livestock alert submission failed",
+            "labelResponded": "new update",
+            "labelResponseFailed": "registration submission failed",
             "isResponseEditable": false
         },
         "ResponseResultsView": {
