@@ -1,8 +1,8 @@
 {
     "id": "com.nanyukiaf.philip.biashara",
     "schemaVersion": 1,
-    "version": "1",
-    "minorVersion": 1,
+    "version": "4",
+    "minorVersion": 2,
     "providerName": "philip",
     "displayName": "Biashara",
     "description": "Biashara",
@@ -23,8 +23,8 @@
             "showLikes": false,
             "showComments": false,
             "labelResponseSending": "Submitting your details",
-            "labelResponded": "Livestock alert provided",
-            "labelResponseFailed": "Livestock alert submission failed",
+            "labelResponded": "Biashara alert provided",
+            "labelResponseFailed": "Biashara alert submission failed",
             "isResponseEditable": false
         },
         "ResponseResultsView": {

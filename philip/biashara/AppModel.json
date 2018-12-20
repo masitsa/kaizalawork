@@ -1,5 +1,5 @@
 {
-    "title": "Registration",
+    "title": "Biashara",
     "visibility": "All",
     "expiry": 0,
     "isAnonymous": false,
@@ -14,8 +14,16 @@
             "type": "Text"
         },
         {
+            "title": "Transmission Type",
+            "type": "Text"
+        },
+        {
             "title": "Car Image",
             "type": "Image"
+        },
+        {
+            "title": "Price",
+            "type": "Text"
         },
         {
             "title": "Name",

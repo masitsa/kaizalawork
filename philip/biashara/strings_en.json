@@ -1,9 +1,11 @@
 {
-    "strMiniAppTitle": "Registration",
+    "strMiniAppTitle": "Biashara",
     "Brand Name": "Brand Name",
     "Brand Model": "Brand Model",
+    "Transmission Type": "Transmission Type",
     "strTapToEnter": "Tap to enter",
     "Car Image": "Car Image",
+    "Price": "Price",
     "Name": "Name",
     "Phone": "Phone Number",
     "Location": "Location",
@@ -18,5 +20,4 @@
     "strMiniAppHeaderTimeLabel": "Created by you at {0}",
     "strSendResponseLabel": "SUBMIT",
     "Response Time": "Response Time"
-
 }
