@@ -124,14 +124,138 @@
             var count = 0;
             for (var cardIndex in myJson) {
                 //Retrieve JSON Values
-                var car_brand = myJson[cardIndex].brand;
-                var car_model = myJson[cardIndex].brand_model;
-                var car_image = myJson[cardIndex].image;
-                var car_price = myJson[cardIndex].price;
+                var brand = myJson[cardIndex].brand;
+                var model = myJson[cardIndex].brand_model;
+                var image = myJson[cardIndex].image;
+                var price = myJson[cardIndex].price;
                 
                 count++;
+                //Brand
+                let brandView = KASClient.UI.getElement("div", divAttributes);
 
-                //Make
+                var brandviewHeader = KASClient.UI.getElement("div", {
+                    "padding": "14px",
+                    "padding-bottom": "0pt"
+                });
+                brandviewHeader.className = "comment-header";
+                brandviewHeader.innerText = _strings["brand"];
+                
+
+                var brandDetails = KASClient.UI.getElement("table", {
+                    "border": "none",
+                    "padding": "14px",
+                    "padding-top": "5pt",
+                    "color": "#32485f",
+                    "font-size": "12pt",
+                    "overflow-wrap": "break-word",
+                    "word-wrap": "break-word",
+                    "word-break": "break-word"
+
+                    KASClient.UI.addElement(brandviewHeader, brandView);
+                    KASClient.UI.addElement(brandView, brandDetails);
+                    KASClient.UI.addElement(brandDetails, brandviewHeader);
+                });
+                imageDetails.innerHTML = price;
+                        }
+                        
+                        KASClient.UI.addElement(imageDetails, imageviewHeader);
+                        KASClient.UI.addElement(imageView, imageView);
+                        KASClient.UI.addElement(imageView, imageView);
+                    }
+                }
+                //Model
+                let modelView = KASClient.UI.getElement("div", divAttributes);
+
+                var modelviewHeader = KASClient.UI.getElement("div", {
+                    "padding": "14px",
+                    "padding-bottom": "0pt"
+                });
+                modelviewHeader.className = "comment-header";
+                modelviewHeader.innerText = _strings["Model"];
+                
+
+                var modelDetails = KASClient.UI.getElement("table", {
+                    "border": "none",
+                    "padding": "14px",
+                    "padding-top": "5pt",
+                    "color": "#32485f",
+                    "font-size": "12pt",
+                    "overflow-wrap": "break-word",
+                    "word-wrap": "break-word",
+                    "word-break": "break-word"
+
+                    KASClient.UI.addElement(modelviewHeader, modelView);
+                    KASClient.UI.addElement(modelView, modelDetails);
+                    KASClient.UI.addElement(modelDetails, modelviewHeader);
+                });
+                imageDetails.innerHTML = price;
+                        }
+                        
+                        KASClient.UI.addElement(imageDetails, imageviewHeader);
+                        KASClient.UI.addElement(imageView, imageView);
+                        KASClient.UI.addElement(imageView, imageView);
+                    }
+                }
+                //image
+                let imageView = KASClient.UI.getElement("div", divAttributes);
+
+                var imageviewHeader = KASClient.UI.getElement("div", {
+                    "padding": "14px",
+                    "padding-bottom": "0pt"
+                });
+                imageviewHeader.className = "comment-header";
+                imageviewHeader.innerText = _strings["image"];
+                
+
+                var imageDetails = KASClient.UI.getElement("table", {
+                    "border": "none",
+                    "padding": "14px",
+                    "padding-top": "5pt",
+                    "color": "#32485f",
+                    "font-size": "12pt",
+                    "overflow-wrap": "break-word",
+                    "word-wrap": "break-word",
+                    "word-break": "break-word"
+                });
+                imageDetails.innerHTML = price;
+                        }
+                        
+                        KASClient.UI.addElement(imageDetails, imageviewHeader);
+                        KASClient.UI.addElement(imageView, imageView);
+                        KASClient.UI.addElement(imageView, imageView);
+                    }
+                }
+
+                //price
+                let imageView = KASClient.UI.getElement("div", divAttributes);
+
+                var imageviewHeader = KASClient.UI.getElement("div", {
+                    "padding": "14px",
+                    "padding-bottom": "0pt"
+                });
+                imageviewHeader.className = "comment-header";
+                imageviewHeader.innerText = _strings["image"];
+                
+
+                var imageDetails = KASClient.UI.getElement("table", {
+                    "border": "none",
+                    "padding": "14px",
+                    "padding-top": "5pt",
+                    "color": "#32485f",
+                    "font-size": "12pt",
+                    "overflow-wrap": "break-word",
+                    "word-wrap": "break-word",
+                    "word-break": "break-word"
+                });
+                imageDetails.innerHTML = price;
+                        }
+                        
+                        KASClient.UI.addElement(imageDetails, imageviewHeader);
+                        KASClient.UI.addElement(imageView, imageView);
+                        KASClient.UI.addElement(imageView, imageView);
+                    }
+                }
+
                 let detailsDiv = KASClient.UI.getElement("div", divAttributes);
 
                 let detailsHeader = KASClient.UI.getElement("div", {
@@ -170,7 +294,7 @@
                 var cell11 = row1.insertCell(0);
                 var cell12 = row1.insertCell(1);
                 cell11.className = "first-column";
-                cell11.innerHTML = "Model";
+                cell11.innerHTML = "Make";
                 cell12.innerHTML = ": " + car_brand;
 
                 var row2 = dataTable.insertRow(1);
