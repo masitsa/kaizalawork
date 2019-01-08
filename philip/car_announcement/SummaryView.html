@@ -109,7 +109,7 @@
         color: "#32485f",
         "font-size": "13.5pt",
         margin: "16px",
-        "margin-top": "10px",
+        "margin-top": "8px",
         "margin-bottom": "8px",
         "box-shadow": "0px 0px 1px 0px rgba(0,0,0,0.12)",
         "border-radius": "4px"
@@ -130,39 +130,37 @@
 
         count++;
 
-        //brand
+        //Make
         let detailsDiv = KASClient.UI.getElement("div", divAttributes);
         let detailsView = KASClient.UI.getElement("div", {
           padding: "14px",
           "padding-top": "5pt"
-
         });
-        let brandView = KASClient.UI.getElement("div", {
+        let brand = KASClient.UI.getElement("div", {
           "color": "#32485f",
           "font-size": "12pt",
           "overflow-wrap": "break-word",
           "word-wrap": "break-word",
           "word-break": "break-word"
         });
-        brandView.className = "comment-header";
-        brandView.innerHTML = car_brand;
+        brand.className = "comment-header";
+        brand.innerHTML = car_brand;
 
-        KASClient.UI.addElement(brandView, detailsView);
+        KASClient.UI.addElement(brand, detailsView);
         KASClient.UI.addElement(detailsView, detailsDiv);
         KASClient.UI.addElement(detailsDiv, summaryView);
 
-          //model
-        let modelView = KASClient.UI.getElement("div", {
+        let model = KASClient.UI.getElement("div", {
           "color": "#32485f",
           "font-size": "12pt",
           "overflow-wrap": "break-word",
           "word-wrap": "break-word",
           "word-break": "break-word"
         });
-        modelView.className = "comment-header";
-        modelView.innerHTML = car_model;
+        model.className = "comment-header";
+        model.innerHTML = car_model;
 
-        KASClient.UI.addElement(modelView, detailsView);
+        KASClient.UI.addElement(model, detailsView);
         KASClient.UI.addElement(detailsView, detailsDiv);
         KASClient.UI.addElement(detailsDiv, summaryView);
 
@@ -221,25 +219,31 @@
         var cell11 = row1.insertCell(0);
         var cell12 = row1.insertCell(1);
         cell11.className = "first-column";
-        cell11.innerHTML = "Brand";
-        cell12.innerHTML = ": " + myJson[cardIndex].brand;
+        cell11.innerHTML = "Sensor";
+        cell12.innerHTML = ": " + myJson[cardIndex].sensor_name;
 
         //Get status name
-        let deviceStatus = myJson[cardIndex].brand_model;
+        let statusName = "Undefinded";
+        let deviceStatus = myJson[cardIndex].bucket_status;
+        if (deviceStatus == 1) {
+          statusName = "UP";
+        } else if (deviceStatus == 0) {
+          statusName = "DOWN";
+        }
 
         var row2 = dataTable.insertRow(1);
         var cell21 = row2.insertCell(0);
         var cell22 = row2.insertCell(1);
         cell21.className = "first-column";
-        cell21.innerHTML = "Image";
-        cell22.innerHTML = ": " +  myJson[cardIndex].image;
+        cell21.innerHTML = "Status";
+        cell22.innerHTML = ": " + statusName;
 
         var row3 = dataTable.insertRow(1);
         var cell31 = row3.insertCell(0);
         var cell32 = row3.insertCell(1);
         cell31.className = "first-column";
-        cell31.innerHTML = "Brand Model";
-        cell32.innerHTML = ": " + myJson[cardIndex].brand_model;
+        cell31.innerHTML = "Duration Down";
+        cell32.innerHTML = ": " + myJson[cardIndex].time_down;
 
         KASClient.UI.addElement(dataTable, detailsView);
         KASClient.UI.addElement(detailsView, detailsDiv);
