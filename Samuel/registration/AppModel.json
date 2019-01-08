@@ -1,5 +1,5 @@
 {
-    "title": "Livestock Alert",
+    "title": "Registration",
     "visibility": "All",
     "expiry": 0,
     "isAnonymous": false,
@@ -7,59 +7,40 @@
     "isLocationRequested": false,
     "questions": [
         {
-            "title": "Livestock Number",
-            "type": "Text",
-            "isOptional": true
+            "title": "Age",
+            "type": "Numeric"
         },
         {
-            "title": "Livestock Location",
-            "type": "Numeric",
-            "isOptional": true
-        },
-        {
-            "title": "Livestock Date",
-            "type": "DateTime",
-            "isOptional": true
-        },
-        {
-            "title": "Measures Taken",
+            "title": "Email",
             "type": "Text"
         },
         {
-            "title": "Livestock Image",
+            "title": "Profile Image",
             "type": "Image"
         },
         {
-            "title": "Herders Number",
-            "type": "Text"
-        },
-        {
-            "title": "Herders Attitude",
-            "type": "Text"
-        },
-        {
-            "title": "Herders Equipment",
-            "type": "Text"
+            "title": "Gender",
+            "type": "SingleSelect",
+            "options": [
+                {
+                    "title": "male"
+                },
+                {
+                    "title": "Female"
+                }
+            ]
         },
         {
             "title": "Region",
-            "type": "SingleSelect",
-            "options": [{
-                    "title": "Nanyuki"
-                },
-                {
-                    "title": "Meru"
-                },
-                {
-                    "title": "Karatina"
-                },
-                {
-                    "title": "Nyeri"
-                },
-                {
-                    "title": "Embu"
-                }
-            ]
+            "type": "Text"
+        },
+        {
+            "title": "salesArea",
+            "type": "Text"
+        },
+        {
+            "title": "cluster",
+            "type": "Text"
         },
         {
             "title": "Name",
@@ -70,12 +51,12 @@
             "type": "Text"
         },
         {
-          "title": "Location",
-          "type": "Location"
+            "title": "Location",
+            "type": "Location"
         },
         {
-          "title": "Response Time",
-          "type": "DateTime"
+            "title": "Response Time",
+            "type": "DateTime"
         }
     ]
 }

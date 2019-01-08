@@ -1,0 +1,35 @@
+{
+	"id": "com.nanyuki.samuel.Buyer",
+	"schemaVersion": 3,
+	"version": "3",
+	"minorVersion": 11,
+	"providerName": "Samuel",
+	"displayName": "Buyer",
+	"description": "Buyer",
+	"icon": "profile.png",
+	"appModel": "AppModel.json",
+	"dials": {
+		"isLocalised": false,
+		"isPinned": false
+	},
+	"actionScope": "Group",
+	"views": {
+		"CreationView": {
+			"sourceLocation": "Response.html",
+			"showNativeToolbar": false
+		},
+		"ChatCanvasCardView": {
+			"showReceipts": false,
+			"showLikes": false,
+			"showComments": false,
+			"labelResponseSending": "Submitting your details",
+			"labelResponded": "Car order successfully submited",
+			"labelResponseFailed": "Car order submission failed",
+			"isResponseEditable": false
+		},
+		"ResponseResultsView": {
+			"sourceLocation": "ResponseSummary.html",
+			"showNativeToolbar": false
+		}
+	}
+}

@@ -13,6 +13,9 @@
     <div class="body-container">
         <div id="page1"></div>
         <div id="page2">
+            <div class="section" id="modelViewDiv" style="padding-top : 8px"></div>
+        </div>
+        <div id="page3">
             <div class="section" id="detailsViewDiv" style="padding-top : 8px">
             </div>
             <div class="section" id="locationViewDiv" style="border-bottom: none">
@@ -53,11 +56,11 @@
         var TOTAL_PAGE = 3;
         var LOCATION_TIMEOUT = 10000;
         
-        function getRegions(){
+        function getBrands(){
             var array = [];            
-            var select = '<option value="">-Pick A Region-</option>';
+            var select = '<option value="">-Pick A brand-</option>';
             var xhttp = new XMLHttpRequest();
-            var url = "https://nanyukiappfactory.azurewebsites.net/safaricom/get-regions";
+            var url = "https://sell-item.azurewebsites.net/samuel/brands/get_posted_cars";
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     try {
@@ -65,23 +68,25 @@
                         var responseObject = JSON.parse(_allResponse);
                         for (var r = 0; r < responseObject.length; r++) {
                             var currentObject = responseObject[r];
-                            var region = currentObject.Region;
+                            var brand = currentObject.brand_name;
                             //Removes repetition
-                            if(array.indexOf(region) == -1) {
-                                array.push(region);
-                                select += '<option value="' + region + '">' + region + '</option>';
+                            if(array.indexOf(brand) == -1) {
+                                array.push(brand);
+                                select += '<option value="' + brand + '">' + brand + '</option>';
                             }                               
                         }  
                     } catch (e) {
                         
                     }
-                    
                 }
+                //Displays the model for selection
+                document.getElementById("Brand").innerHTML = select;
                 
-                document.getElementById("Region").innerHTML = select;
-                
-                document.getElementById("Region").addEventListener('change', function(evt) {
-                    getSalesArea(evt.target.value);
+                document.getElementById("Brand").addEventListener('change', function(evt) {
+                    getModel(evt.target.value);
+                });
+                document.getElementById("Brand").addEventListener('change', function(evt) {
+                    getImage(evt.target.value);
                 });
                 
             };
@@ -89,50 +94,45 @@
             xhttp.send();
         }
 
-        function getSalesArea(reg) {
+        function getModel(reg) {
             var array = [];            
-            var select = '<option value="">-Pick Sales Area-</option>';
+            var select = '<option value="">-Pick A Brand-</option>';
             
             var responseObject = JSON.parse(_allResponse);
             for (var r = 0; r < responseObject.length; r++) {
                 var currentObject = responseObject[r];
-                if(reg == responseObject[r].Region) {
-                    var salesArea = currentObject['Sales_Area'];
-                    if(array.indexOf(salesArea) == -1) {
-                        array.push(salesArea);
-                        select += '<option value="' + salesArea + '">' + salesArea + '</option>';
+                if(reg == responseObject[r].brand_name) {
+                    var model = currentObject.brand_model_name;
+                    if(array.indexOf(model) == -1) {
+                        array.push(model);
+                        select += '<option value="' + model + '">' + model + '</option>';
                     }
                 } 
             }
-            document.getElementById("salesArea").innerHTML = select;
-            document.getElementById("salesArea").addEventListener('change', function(evt) {
-                invalidateFooter();
-                getCluster(evt.target.value);
-            });
+            document.getElementById("Model").innerHTML = select;
             
         }
-
-        function getCluster(cls) {
+        function getImage(img) {
             var array = [];            
-            var select = '<option value="">-Pick Your Cluster-</option>';
-                    
+            var select = '<option value="">-select Image-</option>';
+            
             var responseObject = JSON.parse(_allResponse);
             for (var r = 0; r < responseObject.length; r++) {
                 var currentObject = responseObject[r];
-                if(cls == responseObject[r].Sales_Area) {
-                    var cluster = currentObject.Cluster;
-                    if(array.indexOf(cluster) == -1) {
-                        array.push(cluster);
-                        select += '<option value="' + cluster + '">' + cluster + '</option>';
+                if(img == responseObject[r].brand_name) {
+                    var image = currentObject.brand_image_name;
+                    if(array.indexOf(image) == -1) {
+                        array.push(image);
+                        select += '<option value="' + image + '">' + image + '</option>';
                     }
-                }  
-                 
-            }  
-            document.getElementById("cluster").innerHTML = select;          
+                } 
+            }
+            document.getElementById("CarImage").innerHTML = select;
+            
         }
 
         function onPageLoad() {
-           
+            
             // Register for Android h/w back press event
             KASClient.App.registerHardwareBackPressCallback(function () {
                 KASClient.App.dismissCurrentScreen();
@@ -240,15 +240,17 @@
                     //     questionToAnswerMap[x] = document.getElementById(compressedTitle).getAttribute("src");
                     // }
                     else if (fieldType == 6) {
-                        questionToAnswerMap[x] = document.getElementById(compressedTitle).getAttribute("src");
-
-                    } else {
-                        if(fieldTitle == "Region" || fieldTitle == "cluster" || fieldTitle == "salesArea"){
-                            questionToAnswerMap[x] = selectedOptions[compressedTitle];
-                        }else{
-                            questionToAnswerMap[x] = document.getElementById(compressedTitle).value;
+                        for (let imgId = 0; imgId < imagesId.length - 1; imgId++) {
+                            let imgSrc = document.getElementById(imagesId[imgId]).getAttribute("src");
+                            imagesArray.push(imgSrc);
                         }
-                        
+                        if (imagesArray.length >= 0) {
+                            questionToAnswerMap[x] = imagesArray[0];
+                        } else if (imagesArray.length < 0) {
+                            questionToAnswerMap[x] = tempImage;
+                        }
+                    } else {
+                        questionToAnswerMap[x] = document.getElementById(compressedTitle).value;
                     }
                     count++;
                 }
@@ -260,8 +262,7 @@
             questionToAnswerMap[count] = JSON.stringify(_currentLocation);
             count++;
             questionToAnswerMap[count] = (new Date()).getTime();
-            // Finally submit the responsqe
-           
+            // Finally submit the response
             KASClient.Form.sumbitFormResponse(questionToAnswerMap, null, false, true /* showInChatCanvas */ );
         }
 
@@ -372,8 +373,7 @@
                         fieldInputType = "text";
                 }
                 //Create the field
-                if ((fieldTitle != "Name") && (fieldTitle != "Phone") && (fieldTitle != "Location") && (fieldTitle !=
-                        "Response Time")) {
+                if((fieldTitle != "Name")&& (fieldTitle != "Phone") && (fieldTitle != "Location") && (fieldTitle != "Response Time")) {
                     if (x == (totalQuestions - 1)) {
                         var fieldDiv = KASClient.UI.getElement("div", {
                             "border-bottom": "none"
@@ -423,6 +423,7 @@
                     } else if (fieldInputType == "select") {
                         var fieldInput = KASClient.UI.getElement("div");
                         fieldInput.className = "option-div";
+                        // fieldInput.id = compressedTitle;
 
                         for (i = 0; i < fieldDescription["options"].length; i++) {
                             var option = fieldDescription["options"][i];
@@ -454,8 +455,8 @@
                             KASClient.UI.addElement(options, fieldInput);
                         }
                     } else {
-                        switch (true) {
-                            case fieldTitle == "Region":
+                        switch (fieldTitle) {
+                            case "Brand":
                                 var fieldInput = KASClient.UI.getElement("select");
                                 fieldInput.className = "comment-input";
                                 fieldInput.id = compressedTitle;
@@ -467,15 +468,13 @@
                                     });
                                 }
 
-                                fieldInput.innerHTML = '<option>-Pick A Region-</option>';
+                                fieldInput.innerHTML = '<option>-Pick Your Brand-</option>';
 
                                 fieldInput.addEventListener("change", function (event) {
-                                    selectedOptions[compressedTitle] = event.target.value;
                                     invalidateFooter();
                                 });
                                 break;
-
-                            case fieldTitle == "salesArea":
+                            case "Model":
                                 var fieldInput = KASClient.UI.getElement("select");
                                 fieldInput.className = "comment-input";
                                 fieldInput.id = compressedTitle;
@@ -487,17 +486,14 @@
                                     });
                                 }
 
-                                fieldInput.innerHTML = '<option>-Pick A Sales Area-</option>';
+                                fieldInput.innerHTML = '<option>-Pick Your Model-</option>';
 
                                 fieldInput.addEventListener("change", function (event) {
-                                    selectedOptions[compressedTitle] = event.target.value;
                                     invalidateFooter();
                                 });
                                 break;
-
-                            case fieldTitle == "cluster":
+                                case "CarImage":
                                 var fieldInput = KASClient.UI.getElement("select");
-                                fieldInput.type = fieldInputType;
                                 fieldInput.className = "comment-input";
                                 fieldInput.id = compressedTitle;
 
@@ -508,10 +504,9 @@
                                     });
                                 }
 
-                                fieldInput.innerHTML = '<option>-Pick Your Cluster-</option>';
+                                fieldInput.innerHTML = '<option>-Select Car Image-</option>';
 
-                                fieldInput.addEventListener("change", function (event) { 
-                                    selectedOptions[compressedTitle] = event.target.value;
+                                fieldInput.addEventListener("change", function (event) {
                                     invalidateFooter();
                                 });
                                 break;
@@ -534,7 +529,7 @@
                                     invalidateFooter();
                                 });
                         }
-                         getRegions();
+                        
                     }
 
                     KASClient.UI.addElement(fieldTitleDiv, fieldDiv);
@@ -544,6 +539,7 @@
                     KASClient.UI.addElement(fieldDiv, pageOneDiv);
                 }
             }
+            getBrands();
         }
 
         function addImage(title, fieldInput) {
@@ -581,9 +577,79 @@
             }
             invalidateFooter();
         }
-
         function inflateDetailsView() {
             // 2nd Page
+            var modelViewDiv = document.getElementById("modelViewDiv");
+            KASClient.UI.clearElement(modelViewDiv);
+
+            // show details view
+            var showDetailsView = KASClient.UI.getElement("div", {
+                "display": "block"
+            });
+
+            var showDetailsViewName = KASClient.UI.getElement("div");
+            showDetailsViewName.className = "section";
+
+            var showDetailsViewNameHeader = KASClient.UI.getElement("p");
+            showDetailsViewNameHeader.className = "comment-header";
+            showDetailsViewNameHeader.innerText = _strings["Name"];
+
+            var showDetailsViewNameInput = KASClient.UI.getElement("input");
+            showDetailsViewNameInput.type = "text";
+            showDetailsViewNameInput.className = "comment-input";
+            if (KASClient.getPlatform() == KASClient.Platform.iOS) {
+                KASClient.UI.addCSS(showDetailsViewNameInput, {
+                    "padding-left": "13pt"
+                });
+            }
+            showDetailsViewNameInput.placeholder = _strings["Name"];
+            showDetailsViewNameInput.value = _name;
+            showDetailsViewNameInput.addEventListener("input", function (event) {
+                _name = event.target.value;
+                invalidateFooter();
+            });
+
+            KASClient.UI.addElement(showDetailsViewNameHeader, showDetailsViewName);
+            KASClient.UI.addElement(showDetailsViewNameInput, showDetailsViewName);
+
+            var showDetailsViewPhone = KASClient.UI.getElement("div", {
+                "border-bottom": "none"
+            });
+            showDetailsViewPhone.className = "section";
+
+            var showDetailsViewPhoneHeader = KASClient.UI.getElement("p");
+            showDetailsViewPhoneHeader.className = "comment-header";
+            showDetailsViewPhoneHeader.innerText = _strings["Phone"];
+
+            var showDetailsViewPhoneInput = KASClient.UI.getElement("input", {
+                "border-bottom": "none"
+            });
+            showDetailsViewPhoneInput.type = "tel";
+            showDetailsViewPhoneInput.className = "comment-input";
+            if (KASClient.getPlatform() == KASClient.Platform.iOS) {
+                KASClient.UI.addCSS(showDetailsViewPhoneInput, {
+                    "padding-left": "13pt"
+                });
+            }
+            showDetailsViewPhoneInput.placeholder = _phoneNumber;
+            showDetailsViewPhoneInput.readOnly = true;
+            showDetailsViewPhoneInput.addEventListener("input", function (event) {
+                _phoneNumber = event.target.value;
+                invalidateFooter();
+            });
+
+            KASClient.UI.addElement(showDetailsViewPhoneHeader, showDetailsViewPhone);
+            KASClient.UI.addElement(showDetailsViewPhoneInput, showDetailsViewPhone);
+
+            KASClient.UI.addElement(showDetailsViewName, showDetailsView);
+            KASClient.UI.addElement(showDetailsViewPhone, showDetailsView);
+
+            KASClient.UI.addElement(showDetailsView, detailsViewDiv);
+        }
+
+
+        function inflateDetailsView() {
+            // 3rd Page
             var detailsViewDiv = document.getElementById("detailsViewDiv");
             KASClient.UI.clearElement(detailsViewDiv);
 
@@ -965,8 +1031,7 @@
                 let fieldInputType = "";
                 let compressedTitle = fieldTitle.replace(/\s+/g, '');
 
-                if ((fieldTitle != "Name") && (fieldTitle != "Phone") && (fieldTitle != "Location") && (fieldTitle !=
-                        "Response Time")) {
+                if (fieldTitle != "Name") {
                     var fieldDiv = KASClient.UI.getElement("div", divAttributes);
 
                     var fieldTitleDiv = KASClient.UI.getElement("div", {
