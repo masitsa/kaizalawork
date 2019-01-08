@@ -1,0 +1,40 @@
+{
+  "id": "com.nanyukiaf.patricia.car.announcement",
+  "schemaVersion":1 ,
+  "version": "1",
+  "minorVersion": 1,
+  "providerName": "Patricia",
+  "displayName": "Car Announcement",
+  "description": "Car Announcement",
+  "icon": "kaizala.png",
+  "appModel": "appModel.json",
+  "views": {
+    "CreationView": {
+      "labelHeader": "Bucket Monitor",
+      "sourceLocation": "creationView.html"
+    },
+   
+    "ResponseView": {
+      "sourceLocation": "SummaryView.html",
+      "showNativeToolbar": false
+    },
+   
+    "ResponseResultsView": {
+      "sourceLocation": "SummaryView.html",
+      "showNativeToolbar": false
+    },
+    "ChatCanvasCardView": {
+      "showHeader": false,
+      "labelResponded": "You have viewed bucket downtime.",
+      "labelRespondToForm": "VIEW MORE",
+      "isResponseEditable": false,
+       "sourceLocation": "chatCard.json",
+      "showExpiry": false
+    }
+  },
+  "externalUrls": [
+    {
+      "Url": "http://az617301.vo.msecnd.net"
+    }
+  ]
+}
