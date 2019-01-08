@@ -6,31 +6,16 @@
     "isResponseAppended": true,
     "isLocationRequested": false,
     "questions": [{
-            "title": "Age",
-            "type": "Numeric"
-        },
-        {
-            "title": "Email",
+            "title": "Brand Name",
             "type": "Text"
         },
         {
-            "title": "Date of Birth",
-            "type": "DateTime"
+            "title": "Brand Model",
+            "type": "Text"
         },
         {
-            "title": "Profile Image",
+            "title": "Car Image",
             "type": "Image"
-        },
-        {
-            "title": "Gender",
-            "type": "SingleSelect",
-            "options": [{
-                    "title": "Male"
-                },
-                {
-                    "title": "Female"
-                }
-            ]
         },
         {
             "title": "Name",
@@ -47,18 +32,6 @@
         {
             "title": "Response Time",
             "type": "DateTime"
-        },
-        {
-            "title": "Region",
-            "type": "Text"
-        },
-        {
-            "title": "Sales Area",
-            "type": "Text"
-        },
-        {
-            "title": "Cluster",
-            "type": "Text"
         }
     ]
 }

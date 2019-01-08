@@ -1,0 +1,33 @@
+{
+  "id": "com.nanyukiaf.philip.announcement",
+  "schemaVersion": 1,
+  "displayName": "Announcement",
+  "icon": "announce.png",
+  "version": "2",
+  "minorVersion": "1",
+  "appModel": "AppModel.json",
+  "description": "Sends file contents",
+  "dials": {
+    "isLocalised": true,
+    "isPinned": false,
+    "isInFocus": false
+  },
+  "views": {
+    "ChatCanvasCardView": {
+      "showExpiry": false,
+      "isResponseEditable": false,
+      "sourceLocation": "chatCard.json",
+      "showFooter":false,
+      "showHeader":false
+    },
+    "ResponseResultsView": {
+      "sourceLocation": "AnnouncementSummary.html",
+      "showNativeToolbar": false,
+      "backDialogVisibility": false
+    },
+    "DiscoverView": {
+      "icon": "DiscoverIcon.png"
+    }
+  },
+  "parentTemplateId": "Announcement"
+}

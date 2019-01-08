@@ -57,9 +57,9 @@
         function getRegions() {
             var array = [];
             var secondarray = [];
-            var select = '<option value="">-Pick A Region-</option>';
+            var select = '<option value="">-Pick A Car Brand-</option>';
             var xhttp = new XMLHttpRequest();
-            var url = "https://nanyukiappfactory.azurewebsites.net/safaricom/get-regions";
+            var url = "https://sell-item.azurewebsites.net/philip/get-brands-models";
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     try {
@@ -67,21 +67,21 @@
                         var responseObject = JSON.parse(response);
                         for (var r = 0; r < responseObject.length; r++) {
                             var currentObject = responseObject[r];
-                            var region = currentObject.Region;
-                            if (array.indexOf(region) == -1) {
-                                array.push(region);
+                            var brand = currentObject.brand_name;
+                            if (array.indexOf(brand) == -1) {
+                                array.push(brand);
                                 select += '<option value="' + region + '">' + region + '</option>';
                             }
                         }
-                        document.getElementById("Region").innerHTML = select;
-                        document.getElementById("Region").addEventListener("change", function (
+                        document.getElementById("BrandName").innerHTML = select;
+                        document.getElementById("BrandName").addEventListener("change", function (
                             e) {
-                            var selectSales = '<option value="">-Pick A Sales Area-</option>';
+                            var selectSales = '<option value="">-Pick A Model-</option>';
                             var d = e.target.value;
                             var sales = [];
                             for (let i = 0; i < responseObject.length; i++) {
-                                if (d == responseObject[i].Region) {
-                                    var f = responseObject[i].Sales_Area;
+                                if (d == responseObject[i].brand_name) {
+                                    var f = responseObject[i].brand_model_name;
                                     if (sales.indexOf(f) == -1) {
                                         sales.push(f);
                                         selectSales += '<option value="' + f + '">' + f +
@@ -89,29 +89,7 @@
                                     }
                                 }
                             }
-                            document.getElementById("SalesArea").innerHTML = selectSales;
-
-                            document.getElementById("SalesArea").addEventListener("change",
-                                function (e) {
-                                    var selectCluster =
-                                        '<option value="">-Pick A Cluster-</option>';
-                                    var Sales_Area = e.target.value;
-                                    var clusterArr = [];
-                                    for (let i = 0; i < responseObject.length; i++) {
-                                        if (Sales_Area == responseObject[i].Sales_Area) {
-                                            var cluster = responseObject[i].Cluster;
-                                            if (clusterArr.indexOf(cluster) == -1) {
-                                                clusterArr.push(cluster);
-                                                selectCluster += '<option value="' + cluster +
-                                                    '">' + cluster +
-                                                    '</option>';
-                                            }
-                                        }
-
-                                    }
-                                    document.getElementById("Cluster").innerHTML =
-                                        selectCluster;
-                                });
+                            document.getElementById("BrandModel").innerHTML = selectSales;
                         });
                     } catch (e) {
 
@@ -448,7 +426,7 @@
                             KASClient.UI.addElement(options, fieldInput);
                         }
                     } else {
-                        if (fieldTitle == "Region") {
+                        if (fieldTitle == "Brand Name") {
                             var fieldInput = KASClient.UI.getElement("select");
                             fieldInput.className = "comment-input";
                             fieldInput.id = compressedTitle;
@@ -460,14 +438,13 @@
                                 });
                             }
 
-                            fieldInput.innerHTML = "<option>-Pick A Region-</option>";
+                            fieldInput.innerHTML = "<option>-Pick A Car Brand-</option>";
 
                             fieldInput.addEventListener("change", function (event) {
                                 invalidateFooter();
                             });
 
-
-                        } else if (fieldTitle == "Sales Area") {
+                        } else if (fieldTitle == "Brand Model") {
                             var fieldInput = KASClient.UI.getElement("select");
                             fieldInput.className = "comment-input";
                             fieldInput.id = compressedTitle;
@@ -479,24 +456,7 @@
                                 });
                             }
 
-                            fieldInput.innerHTML = "<option>-Pick A Sales Area-</option>";
-
-                            fieldInput.addEventListener("change", function (event) {
-                                invalidateFooter();
-                            });
-                        } else if (fieldTitle == "Cluster") {
-                            var fieldInput = KASClient.UI.getElement("select");
-                            fieldInput.className = "comment-input";
-                            fieldInput.id = compressedTitle;
-
-                            //dependancy for IOS for just adding padding
-                            if (KASClient.getPlatform() == KASClient.Platform.iOS) {
-                                KASClient.UI.addCSS(fieldInput, {
-                                    "padding-left": "13pt"
-                                });
-                            }
-
-                            fieldInput.innerHTML = "<option>-Pick A Cluster-</option>";
+                            fieldInput.innerHTML = "<option>-Pick A Model-</option>";
 
                             fieldInput.addEventListener("change", function (event) {
                                 invalidateFooter();

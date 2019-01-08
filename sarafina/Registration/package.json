@@ -1,0 +1,35 @@
+{
+    "id": "com.nanyuki.assignmentsuccess.registration",
+    "schemaVersion": 3,
+    "version": "5",
+    "minorVersion": 3,
+    "providerName": "Sarafina",
+    "displayName": "Trial",
+    "description": "Is it important?",
+    "icon": "profile.png",
+    "appModel": "AppModel.json",
+    "dials": {
+        "isLocalised": false,
+        "isPinned": false
+    },
+    "actionScope": "Group",
+    "views": {
+        "CreationView": {
+            "sourceLocation": "Response.html",
+            "showNativeToolbar": false
+        },
+        "ChatCanvasCardView": {
+            "showReceipts": false,
+            "showLikes": false,
+            "showComments": false,
+            "labelResponseSending": "Submitting your details",
+            "labelResponded": "new update",
+            "labelResponseFailed": "registration submission failed",
+            "isResponseEditable": false
+        },
+        "ResponseResultsView": {
+            "sourceLocation": "ResponseSummary.html",
+            "showNativeToolbar": false
+        }
+    }
+}

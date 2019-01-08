@@ -1,13 +1,9 @@
 {
     "strMiniAppTitle": "Registration",
-    "Age": "Your Age",
-    "Email": "Email",
-    "Date of Birth": "Date of Birth",
+    "Brand Name": "Brand Name",
+    "Brand Model": "Brand Model",
     "strTapToEnter": "Tap to enter",
-    "Profile Image": "Profile Image",
-    "Gender": "Gender",
-    "Male": "Male",
-    "Female": "Female",
+    "Car Image": "Car Image",
     "Name": "Name",
     "Phone": "Phone Number",
     "Location": "Location",
@@ -21,9 +17,6 @@
     "strConnectGroupName": "Need To change",
     "strMiniAppHeaderTimeLabel": "Created by you at {0}",
     "strSendResponseLabel": "SUBMIT",
-    "Response Time": "Response Time",
-    "Region": "Region",
-    "Sales Area": "Sales Area",
-    "Cluster": "Cluster"
+    "Response Time": "Response Time"
 
 }
