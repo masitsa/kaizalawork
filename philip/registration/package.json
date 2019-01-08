@@ -1,12 +1,12 @@
 {
-    "id": "com.nanyukiaf.philip.registration",
+    "id": "com.nanyukiaf.philip.biashara",
     "schemaVersion": 1,
-    "version": "11",
-    "minorVersion": 5,
+    "version": "1",
+    "minorVersion": 1,
     "providerName": "philip",
-    "displayName": "Registration",
-    "description": "Registration",
-    "icon": "profile.png",
+    "displayName": "Biashara",
+    "description": "Biashara",
+    "icon": "gari.png",
     "appModel": "AppModel.json",
     "dials": {
         "isLocalised": false,
