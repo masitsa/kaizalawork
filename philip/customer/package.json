@@ -2,7 +2,7 @@
     "id": "com.nanyukiaf.philip.customer",
     "schemaVersion": 1,
     "version": "7",
-    "minorVersion": 5,
+    "minorVersion": 28,
     "providerName": "philip",
     "displayName": "customer",
     "description": "customer",
