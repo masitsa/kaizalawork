@@ -14,12 +14,16 @@
         <div id="page1">
         </div>
         <div id="page2">
+        </div>
+        <div id="page3">
+        </div>
+        <div id="page4">
             <div class="section" id="detailsViewDiv" style="padding-top : 8px">
             </div>
             <div class="section" id="locationViewDiv" style="border-bottom: none">
             </div>
         </div>
-        <div id="page3" style="width: 100%; padding-top: 8px">
+        <div id="page5" style="width: 100%; padding-top: 8px">
         </div>
     </div>
     <!--The footer section-->
@@ -53,7 +57,7 @@
         var ID = 0;
 
         // constants
-        var TOTAL_PAGE = 3;
+        var TOTAL_PAGE = 5;
         var LOCATION_TIMEOUT = 10000;
         var page1 = document.getElementById('page1');
         var page2 = document.getElementById('page2');
@@ -64,16 +68,16 @@
             var array = [];
             var select = '<select id ="selectCar"><option value="">-Pick A Car Brand-</option>';
             var xhttp = new XMLHttpRequest();
-            var url = "https://mysimpleprojects.com/sell-item/philip/get-brands-models";
+            var url = "https://sell-item.azurewebsites.net/philip/get-cars";
             xhttp.onreadystatechange = function () {
-                alert(this.responseText);
-                alert(this.status);
+                // alert(this.responseText);
+                // alert(this.status);
                 if (this.readyState == 4 && this.status == 200) {
                     var response = '';
                     response = this.responseText;
                     if (response != null || response != "" || response != undefined) {
                         responseObject = JSON.parse(response);
-                        alert(JSON.stringify(responseObject));
+                        // alert(JSON.stringify(responseObject));
 
                         for (var r = 0; r < responseObject.length; r++) {
                             var currentObject = responseObject[r];
@@ -83,62 +87,63 @@
                                 select += '<option value="' + brand + '">' + brand + '</option>';
                             }
                         }
-                        select += '</select>';
-                        alert(select);
+                        select += '</select><button onclick="getList()">Search</button>';
                         page1.innerHTML = select;
+
+                        document.getElementById("selectCar").addEventListener("change", function (e) {
+                            var branded = e.target.value;
+                            let brandDiv = '<div>';
+                            // alert('0');
+                            _currentPage++;
+                            updatePage();
+                            // alert('1');
+                            for (var r = 0; r < responseObject.length; r++) {
+                                if (branded == responseObject[r].brand_name) {
+                                    // alert(JSON.stringify(responseObject));
+                                    brandDiv += "<div><p> Brand Name: " + responseObject[r].brand_name +
+                                        "</p><p> Brand Model: " + responseObject[r].brand_model +
+                                        "</p> <button type='button' id='getSingle': " +
+                                        responseObject[r].sender_id +
+                                        ">View</button><input type='button' onclick = 'goBack()' value = 'Back'></input></div>";
+                                } else {}
+                            }
+                            // alert('page2');
+                            brandDiv += '</div>';
+                            page2.innerHTML = brandDiv;
+
+                        });
+                        
+                        document.getElementById("getSingle").onclick = function (id) {                        
+                            _currentPage++;
+                            updatePage();
+                            let singleDiv = '<div>';
+                            for (var x = 0; x < responseObject.length; x++) {
+                                if (id == responseObject[x].sender_id) {
+                                    singleDiv +=
+                                        "<div><p> Brand name: " +
+                                        responseObject[x].brand_name +
+                                        "</p><p> BrandModel name: " + responseObject[x].brand_model +
+                                        "</p><p> Transmission type: " +
+                                        responseObject[x].transmission_type +
+                                        "</p><p> Car Image: <img src='" + responseObject[x].car_image +
+                                        "'></p><button type='button' onclick = 'goBack()'>Go Back</button></div>";
+                                }
+                            }
+                            singleDiv += '</div>';
+                            page3.innerHTML = singleDiv;
+
+                        }
+
+                        function goBack() {
+                            _currentPage--;
+                            updatePage();
+                        }
                     }
-
-
                 }
 
             };
             xhttp.open("GET", url, true);
             xhttp.send();
-        }
-
-        function getSingle(id) {
-            _currentPage++;
-            updatePage();
-            let singleDiv = '<div>';
-            for (var x = 0; x < responseObject.length; x++) {
-                if (id == responseObject[x].sender_id) {
-                    singleDiv +=
-                        "<div><p> Brand name: " +
-                        responseObject[x].brand_name +
-                        "</p><p> BrandModel name: " + responseObject[x].brand_model +
-                        "</p><p> Transmission type: " +
-                        responseObject[x].transmission_type +
-                        "</p><p> Car Image: <img src='" + responseObject[x].car_image +
-                        "'></p><button type='button' onclick = 'goBack()'>Go Back</button></div>";
-                }
-            }
-            singleDiv += '</div>';
-            page3.innerHTML = singleDiv;
-
-        }
-
-        function getList() {
-            let brand = document.getElementById("selectCar").value;
-            let brandDiv = '<div>';
-            if (brand != '') {
-                _currentPage++;
-                updatePage();
-                // goBack("none", "block")
-                console.log(responseObject);
-                for (var r = 0; r < responseObject.length; r++) {
-                    if (brand == responseObject[r].brand_name) {
-                        ID = responseObject[r].sender_id;
-                        brandDiv += "<div><p> Brand Name: " + responseObject[r].brand_name +
-                            "</p><p> Brand Model: " + responseObject[r].brand_model +
-                            "</p><button type='button' onclick = 'getSingle(" +
-                            responseObject[r].sender_id +
-                            ")'>View</button></div>";
-                    }
-                }
-                brandDiv += '</div>';
-                page2.innerHTML = brandDiv;
-            }
-
         }
 
         function onPageLoad() {
@@ -272,7 +277,7 @@
             questionToAnswerMap[count] = JSON.stringify(_currentLocation);
             count++;
             questionToAnswerMap[count] = (new Date()).getTime();
-            alert(JSON.stringify(questionToAnswerMap));
+            // alert(JSON.stringify(questionToAnswerMap));
             // Finally submit the response
             KASClient.Form.sumbitFormResponse(questionToAnswerMap, null, false, true /* showInChatCanvas */ );
         }
@@ -293,11 +298,11 @@
             }
 
             if (_currentPage == 2) {
-                getList();
+                // getList();
             }
 
             if (_currentPage == 3) {
-                getSingle();
+                // getSingle();
             }
 
             if (_currentPage == TOTAL_PAGE) {
@@ -893,11 +898,7 @@
                 if (_currentPage == 1 || _currentPage == 2) {
                     _currentPage++;
                     updatePage();
-                } else if (_currentPage != TOTAL_PAGE) {
-                    _currentPage += 1;
-                    updatePage();
                     document.body.scrollTop = 0;
-
                 } else {
                     submitFormResponse();
                 }
@@ -909,7 +910,7 @@
         }
 
         function inflateSummaryView() {
-            var summaryView = document.getElementById("page3");
+            var summaryView = document.getElementById("page5");
             KASClient.UI.clearElement(summaryView);
 
             var divAttributes = {
@@ -924,7 +925,7 @@
             };
 
             //Get and clear HTML from page 3
-            var pageThreeDiv = document.getElementById("page3");
+            var pageThreeDiv = document.getElementById("page5");
             KASClient.UI.clearElement(pageThreeDiv);
 
             let questions = _form["questions"];
