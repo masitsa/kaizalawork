@@ -152,8 +152,8 @@
                     "word-break": "break-word"
 
                     KASClient.UI.addElement(brandviewHeader, brandView);
-                    KASClient.UI.addElement(brandView, brandDetails);
-                    KASClient.UI.addElement(brandDetails, brandviewHeader);
+                    KASClient.UI.addElement(brandDetails, brandView);
+                    KASClient.UI.addElement(brandView, brandviewHeader);
                 });
                 imageDetails.innerHTML = price;
                         }
@@ -184,16 +184,13 @@
                     "word-wrap": "break-word",
                     "word-break": "break-word"
 
+                    
+                });
+                imageDetails.innerHTML = model;
+                        }  
                     KASClient.UI.addElement(modelviewHeader, modelView);
                     KASClient.UI.addElement(modelView, modelDetails);
-                    KASClient.UI.addElement(modelDetails, modelviewHeader);
-                });
-                imageDetails.innerHTML = price;
-                        }
-                        
-                        KASClient.UI.addElement(imageDetails, imageviewHeader);
-                        KASClient.UI.addElement(imageView, imageView);
-                        KASClient.UI.addElement(imageView, imageView);
+                    KASClient.UI.addElement(modelDetails, detailsDiv);
                     }
                 }
                 //image
@@ -220,24 +217,24 @@
                 imageDetails.innerHTML = price;
                         }
                         
-                        KASClient.UI.addElement(imageDetails, imageviewHeader);
-                        KASClient.UI.addElement(imageView, imageView);
-                        KASClient.UI.addElement(imageView, imageView);
+                        KASClient.UI.addElement(imageviewHeader, imageView);
+                        KASClient.UI.addElement(imageDetails, imageView);
+                        KASClient.UI.addElement(imageView, detailsDiv);
                     }
                 }
 
                 //price
-                let imageView = KASClient.UI.getElement("div", divAttributes);
+                let priceView = KASClient.UI.getElement("div", divAttributes);
 
-                var imageviewHeader = KASClient.UI.getElement("div", {
+                var priceviewHeader = KASClient.UI.getElement("div", {
                     "padding": "14px",
                     "padding-bottom": "0pt"
                 });
-                imageviewHeader.className = "comment-header";
-                imageviewHeader.innerText = _strings["image"];
+                priceviewHeader.className = "comment-header";
+                priceviewHeader.innerText = _strings["price"];
                 
 
-                var imageDetails = KASClient.UI.getElement("table", {
+                var priceDetails = KASClient.UI.getElement("table", {
                     "border": "none",
                     "padding": "14px",
                     "padding-top": "5pt",
@@ -247,12 +244,12 @@
                     "word-wrap": "break-word",
                     "word-break": "break-word"
                 });
-                imageDetails.innerHTML = price;
+                priceDetails.innerHTML = price;
                         }
                         
-                        KASClient.UI.addElement(imageDetails, imageviewHeader);
-                        KASClient.UI.addElement(imageView, imageView);
-                        KASClient.UI.addElement(imageView, imageView);
+                        KASClient.UI.addElement(priceDetails, priceviewHeader);
+                        KASClient.UI.addElement(priceView, priceView);
+                        KASClient.UI.addElement(priceView, priceView);
                     }
                 }
 
