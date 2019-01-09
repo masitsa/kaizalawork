@@ -26,7 +26,18 @@
             "title": "Profile Image",
             "type": "Image"
         },
-        
+        {
+            "title": "Region",
+            "type": "Text"
+        },
+        {
+            "title": "salesArea",
+            "type": "Text"
+        },
+        {
+            "title": "Cluster",
+            "type": "Text"
+        },
         {
             "title": "Name",
             "type": "Text"
@@ -42,18 +53,6 @@
         {
           "title": "Response Time",
           "type": "DateTime"
-        },
-        {
-            "title": "Region",
-            "type": "Text"
-        },
-        {
-            "title": "salesArea",
-            "type": "Text"
-        },
-        {
-            "title": "Cluster",
-            "type": "Text"
         }
         
 

@@ -2,7 +2,7 @@
 	"id": "com.nanyukiaf.samuel.car.announcement",
 	"schemaVersion": 2,
 	"version": "1",
-	"minorVersion": 1,
+	"minorVersion": 2,
 	"providerName": "Samuel",
 	"displayName": "Car Announcement",
 	"description": "Car Announcement",

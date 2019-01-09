@@ -1,19 +1,12 @@
 {
-    "strMiniAppTitle": "Registration",
-    "Age": "Age",
-    "Email": "Email",
-    "Date of Birth": "Date of Birth",
+    "strMiniAppTitle": "Car Announcement",
+    "Business Name": "",
+    "Business Location": "",
     "strTapToEnter": "Tap to enter",
-    "Profile Image": "Profile Image",
-    "Male": "Male",
-    "Female": "Sample Multi Select Question",
-    "Region":"Region",
-    "salesArea":"salesArea",
-    "Cluster":"Cluster",
-    "Name": "Picture of a Flower",
-    "Phone": "Phone",
+    "Name": "Name",
+    "Phone No": "Phone Number",
     "Location": "Location",
-    "Response Time": "Response Time",  
+    "strSelectYourResponse": "Select your reponse",
     "strMiniAppYourDetails": "Your Details",
     "strNoLocationLabel": "Due to poor network connectivity, your location could not be fetched",
     "strRefreshLabel": "REFRESH",
@@ -23,7 +16,6 @@
     "strProgressTextLabel": "{0} of {1}",
     "strConnectGroupName": "Need To change",
     "strMiniAppHeaderTimeLabel": "Created by you at {0}",
-    "strSendResponseLabel": "SUBMIT"
-    
-    
+    "strSendResponseLabel": "SEARCH",
+    "Response Time": "Response Time"
 }
