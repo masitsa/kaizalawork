@@ -1,0 +1,47 @@
+<html>
+
+<head>
+    <script type="text/javascript" src="KASClientCore.js"></script>
+    <script type="text/javascript" src="KASClientUI.js"></script>
+    <script type="text/javascript" src="Survey.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script type="text/javascript">
+
+        function onLoad() {
+            KASClient.Form.getFormAsync(function (form, error) {
+                if (error != null) {
+                    return;
+                }
+            });
+        }
+
+        function btnClicked() {
+            var data = null;
+
+            var xhr = new XMLHttpRequest();
+            xhr.withCredentials = true;
+
+            xhr.addEventListener("readystatechange", function () {
+                if (this.readyState === 4) {
+                    document.getElementById("samplePTag").innerText = this.responseText;
+                }
+            });
+
+            xhr.open("GET", "https://jsonplaceholder.typicode.com/todos/1");
+            xhr.setRequestHeader("cache-control", "no-cache");
+            xhr.setRequestHeader("Postman-Token", "e74222ef-4591-47da-98b5-7a7217402b06");
+
+            xhr.send(data);
+
+        }
+    </script>
+</head>
+
+<body onload="onLoad()">
+    <div id="pageElement">
+        <button style="font-size: 24pt;" onclick="btnClicked()">Choose files & submit</button>
+        <p id="samplePTag"></p>
+    </div>
+</body>
+
+</html>

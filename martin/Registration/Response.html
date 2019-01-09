@@ -53,7 +53,7 @@
         var TOTAL_PAGE = 3;
         var LOCATION_TIMEOUT = 10000;
         
-        function getRegions(){
+        function getBrands(){
             var _region = "";
             var array = [];            
             var select = '<option value="">-Pick A Region-</option>';
@@ -66,19 +66,19 @@
                         var responseObject = JSON.parse(_allResponse);
                         for (var r = 0; r < responseObject.length; r++) {
                             var currentObject = responseObject[r];
-                            var region = currentObject.Region;
-                            if(array.indexOf(region) == -1) {
-                                array.push(region);
-                                select += '<option value="' + region + '">' + region + '</option>';
+                            var brand = currentObject.brand;
+                            if(array.indexOf(brand) == -1) {
+                                array.push(brand);
+                                select += '<option value="' + brand + '">' + brand + '</option>';
                             }                               
                         }  
                     } catch (e) {
                         
                     }
                 }
-                document.getElementById("Region").innerHTML = select;
-                document.getElementById("Region").addEventListener('change', function(evt) {
-                    getSalesArea(evt.target.value);
+                document.getElementById("Brand Name").innerHTML = select;
+                document.getElementById("Brand Name").addEventListener('change', function(evt) {
+                    getModel(evt.target.value);
                 });
                 
             };
@@ -86,47 +86,25 @@
             xhttp.send();
         }
 
-        function getSalesArea(reg) {
-            var _salesArea = "";
+        function getModel(reg) {
+            var _model = "";
             var array = [];            
-            var select = '<option value="">-Pick Sales Area-</option>';
+            var select = '<option value="">-Pick Brand Model Name-</option>';
             
             var responseObject = JSON.parse(_allResponse);
             for (var r = 0; r < responseObject.length; r++) {
                 var currentObject = responseObject[r];
                 if(reg == responseObject[r].Region) {
-                    var salesArea = currentObject['Sales_Area'];
-                    if(array.indexOf(salesArea) == -1) {
-                        array.push(salesArea);
-                        select += '<option value="' + salesArea + '">' + salesArea + '</option>';
+                    var model = currentObject['Sales_Area'];
+                    if(array.indexOf(model) == -1) {
+                        array.push(model);
+                        select += '<option value="' + model + '">' + model + '</option>';
                     }
                 } 
             }
-            document.getElementById("SalesArea").innerHTML = select;
-            document.getElementById("SalesArea").addEventListener('change', function(evt) {
-                getCluster(evt.target.value);
-            });
-            
-        }
+            document.getElementById("Brand Model Name").innerHTML = select;
+            }
 
-        function getCluster(cls) {
-            var _cluster = "";
-            var array = [];            
-            var select = '<option value="">-Pick Your Cluster-</option>';
-                    
-            var responseObject = JSON.parse(_allResponse);
-            for (var r = 0; r < responseObject.length; r++) {
-                var currentObject = responseObject[r];
-                if(cls == responseObject[r].Sales_Area) {
-                    var cluster = currentObject.Cluster;
-                    if(array.indexOf(cluster) == -1) {
-                        array.push(cluster);
-                        select += '<option value="' + cluster + '">' + cluster + '</option>';
-                    }
-                }   
-            }  
-            document.getElementById("Cluster").innerHTML = select;          
-        }
 
         function onPageLoad() {
             // Register for Android h/w back press event
@@ -452,7 +430,7 @@
                         }
                     } else {
                         switch (fieldTitle) {
-                            case "Region":
+                            case "Brand Name":
                                 var fieldInput = KASClient.UI.getElement("select");
                                 fieldInput.className = "comment-input";
                                 fieldInput.id = compressedTitle;
@@ -471,7 +449,7 @@
                                 });
                                 break;
 
-                            case "Sales Area":
+                            case "Brand Model Name":
                                 var fieldInput = KASClient.UI.getElement("select");
                                 fieldInput.className = "comment-input";
                                 fieldInput.id = compressedTitle;
@@ -483,7 +461,7 @@
                                     });
                                 }
 
-                                fieldInput.innerHTML = '<option>-Pick A Sales Area-</option>';
+                                fieldInput.innerHTML = '<option>-Pick A Brand Model Name-</option>';
 
                                 fieldInput.addEventListener("change", function (event) {
                                     invalidateFooter();
