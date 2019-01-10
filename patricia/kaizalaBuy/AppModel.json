@@ -1,0 +1,49 @@
+{
+    "title": "BuyCar",
+    "visibility": "All",
+    "expiry": 0,
+    "isAnonymous": false,
+    "isResponseAppended": true,
+    "isLocationRequested": false,
+    "questions": [
+        {
+            "title": "Brand_name",
+            "type": "Text"
+        },
+        {
+            "title": "Brand_model_name",
+            "type": "Text"
+        },        
+        {
+            "title": "Price",
+            "type": "Text"
+        },
+        {
+            "title": "Color",
+            "type": "Text"
+        },
+        {
+            "title": "Picture",
+            "type": "image"
+        },
+        {
+            "title": "Phone",
+            "type": "Text"
+        },
+        
+        {
+            "title": "Name",
+            "type": "Text"
+        },
+        {
+          "title": "Location",
+          "type": "Location"
+        },
+        {
+          "title": "Response Time",
+          "type": "DateTime"
+        }
+    
+       
+    ]
+}

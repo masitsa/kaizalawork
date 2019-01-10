@@ -46,7 +46,7 @@
                 "color": "#32495f",
                 "max-width": "300pt",
                 "font-weight": "500",
-                "padding-top": "3pt"
+                "padding-top": "13pt"
             });
             mainText.innerText = _form.properties[0].value;
 
@@ -76,11 +76,6 @@
                 KASClient.App.logError(error);
             };
 
-            // Remove any existing pages, if any
-            // if (_pageNavigator) {
-            //   _pageNavigator.popAllPages();
-            //   _pageNavigator = null;
-            // }
             KASClient.App.getLocalizedStringsAsync(function (strings, error) {
                 if (error != null) {
                     showAlert("Error:GetFormAsync:" + error);
@@ -109,28 +104,24 @@
             var divAttributes = {
                 "background-color": "white",
                 "color": "#32485f",
-                "font-size": "13.5pt",
-                "margin": "16px",
+                "font-size": "15pt",
+                "margin": "32px",
                 "margin-top": "8px",
                 "margin-bottom": "8px",
-                "box-shadow": "0px 0px 1px 0px rgba(0,0,0,0.12)",
-                "border-radius": "4px"
+                "box-shadow": "0px 0px 1px 0px rgba(0,0,0,0.12)"
             };
 
             //looping response to display search results on card
             var jsonString = _form.properties[4].value;
             var myJson = JSON.parse(jsonString);
             var card = "";
-            var count = 0;
-            for (var cardIndex in myJson) {
+            
                 //Retrieve JSON Values
-                var car_brand = myJson[cardIndex].brand;
-                var car_model = myJson[cardIndex].brand_model;
-                var car_image = myJson[cardIndex].image;
-                var car_price = myJson[cardIndex].price;
+                var car_brand = myJson.brand;
+                var car_model = myJson.brand_model;
+                var car_image = myJson.image;
+                var car_price = myJson.price;
                 
-                count++;
-
                 //Make
                 let detailsDiv = KASClient.UI.getElement("div", divAttributes);
 
@@ -140,24 +131,16 @@
                 });
 
                 detailsHeader.className = "comment-header";
-                detailsHeader.innerText = "Make";
-                KASClient.UI.addElement(detailsHeader, detailsDiv);
+                detailsHeader.innerText = "Car Details";
 
-                let detailsView = KASClient.UI.getElement("div", {
-                    "padding": "14px",
-                    "padding-top": "5pt"
-                });
+                // let detailsView = KASClient.UI.getElement("div", {
+                //     "padding": "14px",
+                //     "padding-top": "5pt"
+                // });
 
-                let details = KASClient.UI.getElement("div", {
-                    "color": "#32485f",
-                    "font-size": "12pt",
-                    "overflow-wrap": "break-word",
-                    "word-wrap": "break-word",
-                    "word-break": "break-word"
-                });
                 var dataTable = KASClient.UI.getElement("table", {
                     "border": "none",
-                    "padding": "14px",
+                    "padding": "10px",
                     "padding-top": "5pt",
                     "color": "#32485f",
                     "font-size": "12pt",
@@ -166,31 +149,39 @@
                     "word-break": "break-word"
                 });
 
-                var row1 = dataTable.insertRow(0);
-                var cell11 = row1.insertCell(0);
-                var cell12 = row1.insertCell(1);
+                var brandView = dataTable.insertRow(0);
+                var cell11 = brandView.insertCell(0);
+                var cell12 = brandView.insertCell(1);
                 cell11.className = "first-column";
-                cell11.innerHTML = "Make";
+                cell11.innerHTML = "Brand";
                 cell12.innerHTML = ": " + car_brand;
-
-                var row2 = dataTable.insertRow(1);
-                var cell21 = row2.insertCell(0);
-                var cell22 = row2.insertCell(1);
+                //details
+                
+                var modelView = dataTable.insertRow(1);
+                var cell21 = modelView.insertCell(0);
+                var cell22 = modelView.insertCell(1);
                 cell21.className = "first-column";
-                cell21.innerHTML = "Model";
-                cell22.innerHTML = ": " + car_model;
+                cell21.innerHTML = "Details";
+                cell22.innerHTML = ": " + car_model; 
 
-                var row3 = dataTable.insertRow(1);
-                var cell31 = row3.insertCell(0);
-                var cell32 = row3.insertCell(1);
+                var imageView = dataTable.insertRow(2);
+                var cell31 = imageView.insertCell(0);
+                var cell32 = imageView.insertCell(1);
+                cell31.className = "first-column";
+                cell31.innerHTML = "Image";
+                cell32.innerHTML = "<img src ='"+ car_image +"' width ='100%'>";
+                
+                var priceView = dataTable.insertRow(3);
+                var cell31 = priceView.insertCell(0);
+                var cell32 = priceView.insertCell(1);
                 cell31.className = "first-column";
                 cell31.innerHTML = "Price";
                 cell32.innerHTML = ": " + car_price;
 
-                KASClient.UI.addElement(dataTable, detailsView);
-                KASClient.UI.addElement(detailsView, detailsDiv);
+                KASClient.UI.addElement(detailsHeader, detailsDiv);
+                KASClient.UI.addElement(dataTable, detailsDiv);
                 KASClient.UI.addElement(detailsDiv, summaryView);
-            }
+           
         }
 
         ////////////// ERROR SCREEN //////////////

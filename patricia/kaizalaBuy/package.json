@@ -1,0 +1,35 @@
+{
+    "id": "com.nanyuki.sname.carBuyer",
+    "schemaVersion": 14,
+    "version": "14",
+    "minorVersion":23,
+    "providerName": "Patricia",
+    "displayName": "BuyCar",
+    "description": "BuyCar",
+    "icon": "profile2.png",
+    "appModel": "AppModel.json",
+    "dials": {
+        "isLocalised": false,
+        "isPinned": false
+    },
+    "actionScope": "Group",
+    "views": {
+        "CreationView": {
+            "sourceLocation": "Response.html",
+            "showNativeToolbar": false
+        },
+        "ChatCanvasCardView": {
+            "showReceipts": false,
+            "showLikes": false,
+            "showComments": false,
+            "labelResponseSending": "Submitting your details",
+            "labelResponded": "Car purchase request received",
+            "labelResponseFailed": "Car purchase request failed",
+            "isResponseEditable": false
+        },
+        "ResponseResultsView": {
+            "sourceLocation": "ResponseSummary.html",
+            "showNativeToolbar": false
+        }
+    }
+}
