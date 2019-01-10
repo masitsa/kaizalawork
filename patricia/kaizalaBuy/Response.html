@@ -124,8 +124,7 @@
         function getModels(uniqueId) {
             _currentPage++;
             updatePage();
-            var selection = '<div> </div>';
-            var saves = [];
+            var  selectModel = '<div> </div>';
             for (let i = 0; i < responseObject.length; i++) {
                 if (id == responseObject[i].Brand_id) {
                     branded = responseObject[i].Brand_name;
@@ -133,12 +132,12 @@
                     color = responseObject[i].color;
                     price = responseObject[i].price;
                     profile_image = responseObject[i].profile_image;
-                    selection += '<div style = "padding: 10px; margin-top:20px; ">' + '<div style = "padding: 10px; margin-top:10px; value ="' + branded + '"> Brand Name:' + branded +
+                    selectModel += '<div style = "padding: 10px; margin-top:20px; ">' + '<div style = "padding: 10px; margin-top:10px; value ="' + branded + '"> Brand Name:' + branded +
                         '</div >' + '<div style = "padding: 10px; margin-top:10px; value ="' + modelled + '"> Brand Model:' + modelled +
                         '</div >' + '<div style = "padding: 10px; margin-top:10px; value ="' + color + '"> Color:' + color +
                         '</div >' + '<div style = "padding: 10px; margin-top:10px; value ="' + price + '"> price:' + price + '</div>' + '<div style = "padding: 10px; margin-top:10px; img src="' +
                         profile_image + 'height="42" width="42"> Image:' + profile_image +
-                        '</div>' + '<button style = "padding: 10px; margin-top:15px; -webkit-border-radius: 12px;" onclick = "saveselected()" >Purchase</button>' + '</div>';
+                        '</div>' + '<button style = "padding: 10px; margin-top:15px; -webkit-border-radius: 12px;" onclick = "savePurchase()" >Purchase</button>' + '</div>';
                 }
 
             }
@@ -148,7 +147,7 @@
         }
 
 
-        function saveselected() {
+        function savePurchase() {
             _currentPage++;
             updatePage();;
 
