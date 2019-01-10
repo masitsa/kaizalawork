@@ -1,0 +1,53 @@
+{
+    "title": "Car Sale too many action cards",
+    "visibility": "All",
+    "expiry": 0,
+    "isAnonymous": false,
+    "isResponseAppended": true,
+    "isLocationRequested": false,
+    "questions": [
+                
+        {
+            "title": "brand_name",
+            "type": "Text"
+           
+        },
+        {
+            "title": "brand_model",
+            "type": "Text"
+        },
+        {
+            "title": "transmission_code",
+            "type": "Text"
+        },
+        {
+            "title": "brand_image",
+            "type": "Image"
+        },
+        {
+            "title": "year",
+            "type": "Text"
+        },
+        {
+            "title": "price",
+            "type": "Text"
+        },
+        
+        {
+            "title": "Name",
+            "type": "Text"
+        },
+        {
+            "title": "Phone",
+            "type": "Text"
+        },
+        {
+          "title": "Location",
+          "type": "Location"
+        },
+        {
+          "title": "Response Time",
+          "type": "DateTime"
+        }
+    ]
+}

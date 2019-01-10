@@ -1,0 +1,37 @@
+{
+    "title": "Registration",
+    "visibility": "All",
+    "expiry": 0,
+    "isAnonymous": false,
+    "isResponseAppended": true,
+    "isLocationRequested": false,
+    "questions": [{
+            "title": "Brand Name",
+            "type": "Text"
+        },
+        {
+            "title": "Brand Model",
+            "type": "Text"
+        },
+        {
+            "title": "Car Image",
+            "type": "Image"
+        },
+        {
+            "title": "Name",
+            "type": "Text"
+        },
+        {
+            "title": "Phone",
+            "type": "Text"
+        },
+        {
+            "title": "Location",
+            "type": "Location"
+        },
+        {
+            "title": "Response Time",
+            "type": "DateTime"
+        }
+    ]
+}

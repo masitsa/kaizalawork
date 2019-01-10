@@ -1,0 +1,29 @@
+body{
+    margin: 0px;
+}
+
+.KAS-header{
+    color: #333333;
+}
+
+#pageElement{
+    display: flex;
+    flex-direction: column;
+}
+
+.inputTxt{
+    border-radius: 5px;
+    padding: 5px 10px;
+    box-shadow: none;
+    -webkit-appearance: none;
+    border: 1px solid #e3e3e3;
+}
+
+.submitBtn{
+    color: #333333;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 10px;
+    margin: 10px 0px;
+    background-color: rgb(154, 236, 129);
+}

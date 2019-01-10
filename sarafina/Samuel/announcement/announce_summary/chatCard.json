@@ -1,0 +1,34 @@
+{
+    "schemaVersion": 1,
+    "schema": {
+        "type": "container",
+        "initialHeight": 300,
+        "layout": "vertical",
+        "children": [
+            {
+                "type": "text",
+                "paddingLeft": 10,
+                "paddingRight": 10,
+                "string": "${Form.properties[messsageTitle].value",
+                "fontSize": 13,
+                "textColor": "#808080",
+                "textAlignment": "left",
+                "maxNumberOfLines": 4,
+                "marginBottom": 0,
+                "borderBottom": "2 solid black",
+                "textDecoration": "underline solid orange"
+            },
+            {
+                "type": "text",
+                "paddingLeft": 10,
+                "paddingRight": 10,
+                "string": "${Form.properties[responseMessage].value}",
+                "fontSize": 12,
+                "textColor": "#808080",
+                "textAlignment": "left",
+                "maxNumberOfLines": 4,
+                "marginBottom": 0
+            }
+        ]
+    }
+}

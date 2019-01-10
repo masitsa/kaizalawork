@@ -1,0 +1,35 @@
+{
+    "id": "com.nanyuki.carsales.car",
+    "schemaVersion": 4,
+    "version": "7",
+    "minorVersion": 5,
+    "providerName": "Sarafina",
+    "displayName": "Car Sale ... more info",
+    "description": "Upgrade car",
+    "icon": "car.png",
+    "appModel": "AppModel.json",
+    "dials": {
+        "isLocalised": false,
+        "isPinned": false
+    },
+    "actionScope": "Group",
+    "views": {
+        "CreationView": {
+            "sourceLocation": "Response.html",
+            "showNativeToolbar": false
+        },
+        "ChatCanvasCardView": {
+            "showReceipts": false,
+            "showLikes": false,
+            "showComments": false,
+            "labelResponseSending": "Submitting your details",
+            "labelResponded": "new update",
+            "labelResponseFailed": "submission failed",
+            "isResponseEditable": false
+        },
+        "ResponseResultsView": {
+            "sourceLocation": "ResponseSummary.html",
+            "showNativeToolbar": false
+        }
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "title": "Announcement",
+    "visibility": "All",
+    "allowSendReminder": "Sender",
+    "isAnonymous": false,
+    "isResponseAppended": false,
+    "questions": [{
+            "title": "What....",
+            "type": "Text"
+        },
+        {
+            "title": "Comments",
+            "type": "Text"
+        },
+        {
+            "title": "response",
+            "type": "Text"
+        }
+    ],
+    "properties": []
+}
