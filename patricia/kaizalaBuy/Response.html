@@ -88,17 +88,17 @@
                         document.getElementById("Brand_name").addEventListener("change", function (
                             e) {
                             var selectModelName = '<div value=""></div>';
-                            var d = e.target.value;
+                            var pickedBrand = e.target.value;
                             var modelArray = [];
                             for (let i = 0; i < responseObject.length; i++) {
-                                if (d == responseObject[i].Brand_name) {
+                                if (pickedBrand == responseObject[i].Brand_name) {
                                     var  uniqueNames = responseObject[i].Brand_model_name;
                                     let uniqueId = responseObject[i].Brand_id;
-                                    if (modelArray.indexOf(a) == -1) {
-                                        modelArray.push(a);
+                                    if (modelArray.indexOf(uniqueId) == -1) {
+                                        modelArray.push(uniqueId);
 
                                         selectModelName += '<div><div style = "padding: 10px; -webkit-border-radius: 12px;" value = "' + uniqueNames + '">' + uniqueNames +
-                                            '</div<br></br><button  style = "padding: 10px; margin-top:10px; -webkit-border-radius: 12px;" onclick= "getModels(' +  uniqueId +
+                                            '</div<br></br><button  style = "padding: 10px; margin-top:10px; -webkit-border-radius: 12px;" onclick= "viewModelDetails(' +  uniqueId +
                                             ')"> Details </button> ' +
                                             '<br></br><div id = "' +  uniqueId + '" width = "150px" > </div>' +
                                             '<br></br></div>';
@@ -121,7 +121,7 @@
             xhttp.send();
 
         }
-        function getModels(uniqueId) {
+        function viewModelDetails(uniqueId) {
             _currentPage++;
             updatePage();
             var  selectModel = '<div> </div>';
