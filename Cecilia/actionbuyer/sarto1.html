@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Sato JS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+
+<body>
+  <div id="page1"></div>
+  <div id="page2"></div>
+  <div id="page3"></div>
+  <script type="text/javascript">
+  var response  = [];
+var page1 = document.getElementById("page1");
+      var page2 = document.getElementById("page2");
+      var page3 = document.getElementById("page3");
+      var array = [];
+      var select = '<select><option value="">-Pick A Brand-</option>';
+      var xhttp = new XMLHttpRequest();
+      var url = "http://localhost/sell-item/cecilia/get-cars";
+      //function getBrandName() {
+     
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          try {
+            response = this.responseText;
+            var responseObject = JSON.parse(response);
+            for (var r = 0; r < responseObject.length; r++) {
+              var currentObject = responseObject[r];
+              
+              var brand = currentObject.brand;
+              if (array.indexOf(brand) == -1) {
+                array.push(brand);
+                select += '<option value="' + brand + '">' + brand + '</option>';
+                
+              }
+              
+            }
+            select += '</select><br></br>';
+           // page1.innerHTML = select;
+            //select
+            document.getElementById("page1").innerHTML = select;
+            document.getElementById("page1").addEventListener("change", function(
+                            e) {
+                            var selectModels = '<div value="">--</div>';
+                            var d = e.target.value;
+                            var modelArray= [];
+                            for (let i = 0; i < responseObject.length; i++) {
+                                if (d == responseObject[i].brand) {
+                                    var a = responseObject[i].model;
+                                    var id = responseObject[i].seller_id;
+                                    if (modelArray.indexOf(a) == -1) {
+                                       modelArray.push(a);
+                                       selectModels += '<div value="' + a + '">' + a +'<br><br/>' + '<button onclick = "getModels('+ id +')" value ='+ a +'>View</button>'+'<br><br/>'+'</div>';
+                                       selectModels += '</div>'
+                                       console.log(a);
+
+                                        //selectModels += '<div value="' + a + '">' + a +
+                                           // '</div>';
+                                           
+                                    }
+
+                                }
+                            }
+                            document.getElementById("page2").innerHTML = selectModels;
+                          
+
+                          
+                        });
+          } catch (e) {
+
+          }
+
+        }
+
+      };
+      xhttp.open("GET", url, true);
+      xhttp.send();
+
+    //}
+
+
+    function getModels(id) {
+       var responseObject = JSON.parse(response);
+       for (let i = 0; i < responseObject.length; i++) {
+         if(id == responseObject[i].seller_id){
+            var car_image = responseObject[i].car_image;
+            var price = responseObject[i].price;
+            var transmission = responseObject[i].transmission;
+         }
+      
+
+      console.log(car_image);
+      let userDiv = "<div> </div>";  
+      //var d = e.target.value;  
+        //goBack("none", "block");
+       // for (let i = 0; i < models.length; i++) {
+          if ( car_image) {
+            userDiv +=
+              "<div style='margin:10;background-color:#FF5'><div style='margin:10;'><p>Image:</p><img src=" +car_image+ "alt='Smiley face' height='42' width='42'><p>Transmission: " +
+              transmission +
+              "</p><p> Price:"
+               price +
+               "</p></div><button type='button' onclick=getSingle(" +
+              ")>View</button><button type='button' onclick='goPage1()'>Page1</button></div>";
+              
+          }
+          page3.innerHTML = userDiv;
+        }
+
+          
+        
+      }
+  
+
+    function goPage1() {
+      page1.style.display = "block";
+      page2.style.display = "none";
+      page3.style.display = "none";
+    }
+
+    function getSingle(id) {
+      showPage("none", "block");
+      let singleDiv = "<div>";
+      for (let i = 0; i < data.length; i++) {
+        if (id == data[i].id) {
+          singleDiv +=
+            "<div style='margin:10;background-color:#ff0000'><div style='margin:10;'><p>Firstname: " +
+            data[i].first_name +
+            "</p><p>LastName: " +
+            data[i].last_name +
+            "</p><p>Email: " +
+            data[i].email +
+            "</p><p>Gender: " +
+            data[i].gender +
+            "</p><p>IP_Address: " +
+            data[i].ip_address +
+            "</p></div><button type='button' onclick='go()'>Go Back</button></div>";
+        }
+      }
+      singleDiv += "</div>";
+      page3.innerHTML = singleDiv;
+    }
+
+    function go() {
+      goBack("none", "block");
+    }
+
+    function goBack(hide, show) {
+      page1.style.display = hide;
+      page2.style.display = show;
+      page3.style.display = hide;
+    }
+
+    function showPage(hide, show) {
+      page1.style.display = hide;
+      page2.style.display = hide;
+      page3.style.display = show;
+    }
+  </script>
+</body>
+
+</html>

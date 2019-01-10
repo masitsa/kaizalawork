@@ -1,0 +1,35 @@
+{
+    "id": "com.NanyukiAppFactory.Buyer",
+    "schemaVersion": 3,
+    "version": "8",
+    "minorVersion":14,
+    "providerName": "Cecilia",
+    "displayName": "Buyer",
+    "description": "Buyer",
+    "icon": "profile.png",
+    "appModel": "AppModel.json",
+    "dials": {
+        "isLocalised": false,
+        "isPinned": false
+    },
+    "actionScope": "Group",
+    "views": {
+        "CreationView": {
+            "sourceLocation": "Response.html",
+            "showNativeToolbar": false
+        },
+        "ChatCanvasCardView": {
+            "showReceipts": false,
+            "showLikes": false,
+            "showComments": false,
+            "labelResponseSending": "Submitting your request",
+            "labelResponded": "Car purchase request provided",
+            "labelResponseFailed": "Car request failed",
+            "isResponseEditable": false
+        },
+        "ResponseResultsView": {
+            "sourceLocation": "ResponseSummary.html",
+            "showNativeToolbar": false
+        }
+    }
+}

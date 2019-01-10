@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   
+   
+</head>
+<body>
+    <p>HI</p>
+    <script>
+            window.onload = function () {
+            getRegions();
+            
+            
+        function getRegions() {
+                var array = [];
+                var select = '<div><select><option value="">-Pick A Brand-</option></select></div>';
+                
+                var xhttp = new XMLHttpRequest();
+                var url = "http://localhost/sell-item/cecilia/get-cars";
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        try {
+                            var response = this.responseText;
+                            var responseObject = JSON.parse(response);
+                            for (var r = 0; r < responseObject.length; r++) {
+                                var currentObject = responseObject[r];
+                                var brandn = currentObject.brand;
+                               
+                                if (array.indexOf(brandn) == -1) {
+                                    array.push(brandn);
+                                    select += '<option value="' + brandn + '">' + brandn + '</option>';
+                                
+                                }
+                            }
+                            
+                            document.getElementById("brand").innerHTML = select;
+                            
+
+                            document.getElementById("brand").addEventListener("change", getbrandmodel);
+
+                            function getbrandmodel (e){
+                                var selectbrandmodel = '<option value="">Available Models</option>';
+                                 d = e.target.value;
+                                 document.getElementById("lists").addEventListener("click", function(e){
+                                    document.getElementById("lists").innerHTML +=d;
+                                    var brk= '</br>';
+                                    document.getElementById("lists").innerHTML +=brk;
+                                 });
+                                var brandsmodel = [];
+                                for (let i = 0; i < responseObject.length; i++) {
+                                    if (d == responseObject[i].brand_name) {
+                                        var brands_model_name = responseObject[i].brand_model_name;
+                                        if (brandsmodel.indexOf(brands_model_name) == -1) {
+                                            brandsmodel.push(brands_model_name);
+                                            selectbrandmodel += '<option value="' + brands_model_name + '">' + brands_model_name +'</option>'; 
+                                                
+                                        }
+
+                                    }
+                                }
+                                document.getElementById("brand_model").innerHTML = selectbrandmodel;
+                                
+                            }
+
+
+                            document.getElementById("brand_model").addEventListener("change", getmodeldetails);
+                              
+                            function getmodeldetails(e){
+                                
+                                        var selectImage ='<option value="">-Pick an Image-</option>';
+                                         var brand_model_name = e.target.value;
+                                         document.getElementById("lists").addEventListener("click", function(e){
+                                            document.getElementById("lists").innerHTML +=brand_model_name;
+                                            var brk= '</br>';
+                                    document.getElementById("lists").innerHTML +=brk;
+                                 });
+                                       
+                                        var imageArr = [];
+                                        for (let i = 0; i < responseObject.length; i++) {
+                                            if (brand_model_name == responseObject[i].model) {
+                                                var brands_image_name = responseObject[i].image;
+                                                if (imageArr.indexOf(brands_image_name) == -1) {
+                                                    imageArr.push(brands_image_name);
+                                                    document.getElementById("lists").addEventListener("click", function(e){
+                                                        document.getElementById("lists").innerHTML +=imageArr;
+                                                        var brk= '</br>';
+                                    document.getElementById("lists").innerHTML +=brk;
+                                    });
+                                                    selectImage += '<option value="' + brands_image_name +
+                                                        '">' + brands_image_name +
+                                                        '</option>';
+                                                }
+                                            }
+
+                                        }
+
+                                        document.getElementById("image").innerHTML =
+                                        selectImage;
+                                    };
+                                    
+                                    
+                        } catch (e) {
+
+                        }
+
+                    }
+
+                };
+                xhttp.open("GET", url, true);
+                xhttp.send();
+
+            }
+            }
+        
+        </script>
+        <div><select id="brand"><br></select>
+   
+            <!--input type= button value= search></input> --> 
+          </div></br>
+          
+          
+          <div><select id="brand"></select> <br></div></br>
+          
+          <div><select id="image"><br></select></div>
+          <div id="lists"><input type= button value= "view all the details"></input></div>
+          
+</body>
+
+
+</html>
