@@ -1,0 +1,92 @@
+<html>
+
+<head>
+    <script>
+        window.onload = function () {
+            getRegions();
+            var _regions = "";
+            var _salesarea = "";
+            var _regionArea = "";
+
+            function getRegions() {
+                var array = [];
+                var secondarray = [];
+                var select = '<option value="">-Pick A Region-</option>';
+                var xhttp = new XMLHttpRequest();
+                var url = "https://nanyukiappfactory.azurewebsites.net/safaricom/get-regions";
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        try {
+                            var response = this.responseText;
+                            var responseObject = JSON.parse(response);
+                            for (var r = 0; r < responseObject.length; r++) {
+                                var currentObject = responseObject[r];
+                                var region = currentObject.Region;
+                                if (array.indexOf(region) == -1) {
+                                    array.push(region);
+                                    select += '<option value="' + region + '">' + region + '</option>';
+                                }
+                            }
+                            document.getElementById("Region").innerHTML = select;
+                            document.getElementById("Region").addEventListener("change", function (
+                                e) {
+                                var selectSales = '<option value="">-Pick A Cluster-</option>';
+                                var d = e.target.value;
+                                var sales = [];
+                                for (let i = 0; i < responseObject.length; i++) {
+                                    if (d == responseObject[i].Region) {
+                                        var f = responseObject[i].Sales_Area;
+                                        if (sales.indexOf(f) == -1) {
+                                            sales.push(f);
+                                            selectSales += '<option value="' + f + '">' + f +
+                                                '</option>';
+                                        }
+                                    }
+                                }
+                                document.getElementById("salesArea").innerHTML = selectSales;
+
+                                document.getElementById("salesArea").addEventListener("change",
+                                    function (e) {
+                                        var selectCluster =
+                                            '<option value="">-Pick A Cluster-</option>';
+                                        var Sales_Area = e.target.value;
+                                        var clusterArr = [];
+                                        for (let i = 0; i < responseObject.length; i++) {
+                                            if (Sales_Area == responseObject[i].Sales_Area) {
+                                                var cluster = responseObject[i].Cluster;
+                                                if (clusterArr.indexOf(cluster) == -1) {
+                                                    clusterArr.push(cluster);
+                                                    selectCluster += '<option value="' + cluster +
+                                                        '">' + cluster +
+                                                        '</option>';
+                                                }
+                                            }
+
+                                        }
+                                        document.getElementById("cluster").innerHTML =
+                                            selectCluster;
+                                    });
+                            });
+                        } catch (e) {
+
+                        }
+
+                    }
+
+                };
+                xhttp.open("GET", url, true);
+                xhttp.send();
+            }
+
+
+        }
+    </script>
+</head>
+
+<body>
+    <div><select id="Region"></select></div></br>
+    <div></div>
+    <div><select id="salesArea"></select></div></br>
+    <div></div>
+    <div><select id="cluster">
+            <select</div> </body> </html>
