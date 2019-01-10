@@ -18,6 +18,18 @@
             "type": "Text"
         },
         {
+            "title": "Car Image",
+            "type": "Text"
+        },
+        {
+            "title": "Seller Name",
+            "type": "Text"
+        },
+        {
+            "title": "Price",
+            "type": "Text"
+        },
+        {
             "title": "Name",
             "type": "Text"
         },

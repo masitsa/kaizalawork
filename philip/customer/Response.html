@@ -62,6 +62,12 @@
         var page1 = document.getElementById('page1');
         var page2 = document.getElementById('page2');
         var page3 = document.getElementById('page3');
+        var branded = "";
+        var modelled = "";
+        var transmitted = "";
+        var imaged = "";
+        var sellerName = "";
+        var priced = "";
 
 
         function getCars() {
@@ -76,6 +82,7 @@
                     var response = '';
                     response = this.responseText;
                     if (response != null || response != "" || response != undefined) {
+                        KASClient.App.hideProgressBar();
                         responseObject = JSON.parse(response);
                         // alert(JSON.stringify(responseObject));
 
@@ -90,63 +97,75 @@
                         select += '</select><button onclick="getList()">Search</button>';
                         page1.innerHTML = select;
 
-                        document.getElementById("selectCar").addEventListener("change", function (e) {
-                            var branded = e.target.value;
-                            let brandDiv = '<div>';
-                            // alert('0');
-                            _currentPage++;
-                            updatePage();
-                            // alert('1');
-                            for (var r = 0; r < responseObject.length; r++) {
-                                if (branded == responseObject[r].brand_name) {
-                                    // alert(JSON.stringify(responseObject));
-                                    brandDiv += "<div><p> Brand Name: " + responseObject[r].brand_name +
-                                        "</p><p> Brand Model: " + responseObject[r].brand_model +
-                                        "</p> <button type='button' id='getSingle': " +
-                                        responseObject[r].sender_id +
-                                        ">View</button><input type='button' onclick = 'goBack()' value = 'Back'></input></div>";
-                                } else {}
-                            }
-                            // alert('page2');
-                            brandDiv += '</div>';
-                            page2.innerHTML = brandDiv;
-
-                        });
-                        
-                        document.getElementById("getSingle").onclick = function (id) {                        
-                            _currentPage++;
-                            updatePage();
-                            let singleDiv = '<div>';
-                            for (var x = 0; x < responseObject.length; x++) {
-                                if (id == responseObject[x].sender_id) {
-                                    singleDiv +=
-                                        "<div><p> Brand name: " +
-                                        responseObject[x].brand_name +
-                                        "</p><p> BrandModel name: " + responseObject[x].brand_model +
-                                        "</p><p> Transmission type: " +
-                                        responseObject[x].transmission_type +
-                                        "</p><p> Car Image: <img src='" + responseObject[x].car_image +
-                                        "'></p><button type='button' onclick = 'goBack()'>Go Back</button></div>";
-                                }
-                            }
-                            singleDiv += '</div>';
-                            page3.innerHTML = singleDiv;
-
-                        }
-
-                        function goBack() {
-                            _currentPage--;
-                            updatePage();
-                        }
                     }
                 }
-
             };
             xhttp.open("GET", url, true);
             xhttp.send();
         }
 
+        function getList() {
+            let brand = document.getElementById("selectCar").value;
+            let brandDiv = '<div>';
+            if (brand != '') {
+                _currentPage++;
+                updatePage();
+                for (var r = 0; r < responseObject.length; r++) {
+                    brand == responseObject[r].brand_name ?
+                        brandDiv += "<div><p> Brand Name: " + responseObject[r].brand_name +
+                        "</p><p> Brand Model: " + responseObject[r].brand_model +
+                        "</p> <button type='button' onclick = 'getSingle(" +
+                        responseObject[r].sender_id +
+                        ")'>View</button><button onclick = 'goBack()'>Go Back</button></div>" : false;
+
+                }
+                brandDiv += '</div>';
+                page2.innerHTML = brandDiv;
+            }
+
+        }
+
+        function getSingle(id) {
+            _currentPage++;
+            updatePage();
+            let singleDiv = '<div>';
+            for (var x = 0; x < responseObject.length; x++) {
+                if (id == responseObject[x].sender_id) {
+                    singleDiv +=
+                        "<div><p> Brand name: " +
+                        responseObject[x].brand_name +
+                        "</p><p> BrandModel name: " + responseObject[x].brand_model +
+                        "</p><p> Transmission type: " +
+                        responseObject[x].transmission_type +
+                        "</p><p> Car Image: <img src='" + responseObject[x].car_image +
+                        "'width = '200' height = '200'></p><p> Seller Name: " + responseObject[x].responder_name +
+                        "</p><p> Price: " + responseObject[x].price +
+                        "</p></p><button onclick = 'goBack()'>Go Back</button><button onclick = 'selectedValues()'>Confirm Car</button></div>";
+                    branded = responseObject[x].brand_name;
+                    modelled = responseObject[x].brand_model;
+                    transmitted = responseObject[x].transmission_type;
+                    imaged = responseObject[x].car_image;
+                    sellerName = responseObject[x].responder_name;
+                    priced = responseObject[x].price;
+                }
+            }
+            singleDiv += '</div>';
+            page3.innerHTML = singleDiv;
+
+        }
+
+        function goBack() {
+            _currentPage--;
+            updatePage();
+        }
+
+        function selectedValues() {
+            _currentPage++;
+            updatePage();
+        }
+
         function onPageLoad() {
+            KASClient.App.showProgressBar("Loading..");
             getCars();
             // Register for Android h/w back press event
             KASClient.App.registerHardwareBackPressCallback(function () {
@@ -265,7 +284,28 @@
                             questionToAnswerMap[x] = tempImage;
                         }
                     } else {
-                        questionToAnswerMap[x] = document.getElementById(compressedTitle).value;
+                        if(fieldTitle == "Brand Name"){
+                            questionToAnswerMap[x] = branded;
+                        }
+                        else if(fieldTitle == "Brand Model"){
+                            questionToAnswerMap[x] = modelled;
+                        }
+                        else if(fieldTitle == "Transmission"){
+                            questionToAnswerMap[x] = transmitted;
+                        } 
+                        else if(fieldTitle == "Car Image"){
+                            questionToAnswerMap[x] = imaged
+                        }
+                        else if(fieldTitle == "Seller Name"){
+                            questionToAnswerMap[x] = sellerName;
+                        }
+                        else if(fieldTitle == "Price"){
+                            questionToAnswerMap[x] = priced;
+                        }                       
+                        else{
+                            questionToAnswerMap[x] = document.getElementById(compressedTitle).value;
+                        }
+                        
                     }
                     count++;
                 }
@@ -277,7 +317,6 @@
             questionToAnswerMap[count] = JSON.stringify(_currentLocation);
             count++;
             questionToAnswerMap[count] = (new Date()).getTime();
-            // alert(JSON.stringify(questionToAnswerMap));
             // Finally submit the response
             KASClient.Form.sumbitFormResponse(questionToAnswerMap, null, false, true /* showInChatCanvas */ );
         }
@@ -303,6 +342,12 @@
 
             if (_currentPage == 3) {
                 // getSingle();
+            }
+
+            if (_currentPage == 4 && _isLocationNotFetched) {
+                _isLocationNotFetched = false;
+                refreshLocation();
+                inflateLocationView();
             }
 
             if (_currentPage == TOTAL_PAGE) {
@@ -392,7 +437,7 @@
                         fieldInputType = "text";
                 }
                 //Create the field
-                if ((fieldTitle != "Brand Model") && (fieldTitle != "Transmission") && (fieldTitle != "Name") && (
+                if ((fieldTitle != "Brand Model") && (fieldTitle != "Transmission") && (fieldTitle != "Car Image") && (fieldTitle != "Seller Name") && (fieldTitle != "Price") && (fieldTitle != "Name") && (
                         fieldTitle != "Phone") && (fieldTitle != "Location") && (fieldTitle !=
                         "Response Time")) {
                     if (x == (totalQuestions - 1)) {
@@ -474,26 +519,7 @@
 
                             KASClient.UI.addElement(options, fieldInput);
                         }
-                    } else {
-                        if (fieldTitle == "Brand Name") {
-                            var fieldInput = KASClient.UI.getElement("select");
-                            fieldInput.className = "comment-input";
-                            fieldInput.id = compressedTitle;
-
-                            //dependancy for IOS for just adding padding
-                            if (KASClient.getPlatform() == KASClient.Platform.iOS) {
-                                KASClient.UI.addCSS(fieldInput, {
-                                    "padding-left": "13pt"
-                                });
-                            }
-
-                            fieldInput.innerHTML = "<option>-Choose A Car Brand-</option>";
-
-                            fieldInput.addEventListener("change", function (event) {
-                                invalidateFooter();
-                            });
-
-                        } else {
+                    }  else {
                             var fieldInput = KASClient.UI.getElement("input");
                             fieldInput.type = fieldInputType;
                             fieldInput.className = "comment-input";
@@ -522,11 +548,7 @@
 
             }
 
-        }
-
-        function loadPageTwo() {
-
-        }
+        
 
         function addImage(title, fieldInput) {
 
@@ -624,6 +646,7 @@
                 _phoneNumber = event.target.value;
                 invalidateFooter();
             });
+            // alert(_phoneNumber);
 
             KASClient.UI.addElement(showDetailsViewPhoneHeader, showDetailsViewPhone);
             KASClient.UI.addElement(showDetailsViewPhoneInput, showDetailsViewPhone);
@@ -860,7 +883,7 @@
                     let fieldInputType = "";
                     var compressedTitle = fieldTitle.replace(/\s+/g, '');
 
-                    if ((fieldTitle != "Brand Model") && (fieldTitle != "Transmission") && (fieldTitle != "Name") && (
+                    if ((fieldTitle != "Brand Model") && (fieldTitle != "Transmission")&& (fieldTitle != "Car Image") && (fieldTitle != "Seller Name") && (fieldTitle != "Price")  && (fieldTitle != "Name") && (
                             fieldTitle != "Phone") && (fieldTitle != "Location") && (fieldTitle !=
                             "Response Time")) {
                         let formValue = "";
@@ -895,7 +918,7 @@
                 });
             }
             nextButton.addEventListener("click", function () {
-                if (_currentPage == 1 || _currentPage == 2) {
+                if (_currentPage == 1 || _currentPage == 2||  _currentPage == 3|| _currentPage == 4) {
                     _currentPage++;
                     updatePage();
                     document.body.scrollTop = 0;
@@ -910,6 +933,7 @@
         }
 
         function inflateSummaryView() {
+            // alert('1');
             var summaryView = document.getElementById("page5");
             KASClient.UI.clearElement(summaryView);
 
@@ -925,11 +949,13 @@
             };
 
             //Get and clear HTML from page 3
-            var pageThreeDiv = document.getElementById("page5");
-            KASClient.UI.clearElement(pageThreeDiv);
+            var pageFiveDiv = document.getElementById("page5");
+            KASClient.UI.clearElement(pageFiveDiv);
+            // alert('2');
 
             let questions = _form["questions"];
             let totalQuestions = questions.length;
+            // alert('3');
 
             for (var x = 0; x < totalQuestions; x++) {
                 let fieldDescription = questions[x];
@@ -980,16 +1006,35 @@
 
                         fieldInputValue.innerHTML = _strings[option.text];
                     } else {
-                        fieldInputValue.innerHTML = document.getElementById(compressedTitle).value;
+                        if(fieldTitle == "Brand Name"){
+                            fieldInputValue.innerHTML = branded;
+                        }
+                        else if(fieldTitle == "Brand Model"){
+                            fieldInputValue.innerHTML = modelled;
+                        }
+                        else if(fieldTitle == "Transmission"){
+                            fieldInputValue.innerHTML = transmitted;
+                        }  
+                        else if(fieldTitle == "Car Image"){
+                            fieldInputValue.innerHTML = imaged;
+                        }
+                        else if(fieldTitle == "Seller Name"){
+                            fieldInputValue.innerHTML = sellerName;
+                        }
+                        else if(fieldTitle == "Price"){
+                            fieldInputValue.innerHTML = priced;
+                        }                      
+                        else{
+                            //fieldInputValue.innerHTML = document.getElementById(compressedTitle).value;
+                        }
                     }
-
                     KASClient.UI.addElement(fieldInputValue, fieldInput);
 
                     KASClient.UI.addElement(fieldTitleDiv, fieldDiv);
                     KASClient.UI.addElement(fieldInput, fieldDiv);
 
                     //Add items to page 3
-                    KASClient.UI.addElement(fieldDiv, pageThreeDiv);
+                    KASClient.UI.addElement(fieldDiv, pageFiveDiv);
                 }
             }
 
