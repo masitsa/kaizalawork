@@ -47,7 +47,8 @@
         var imagesArray = [];
         var tempImage = "";
         var countImage = 0;
-        
+        var _regions = "";
+        var _regionArea = "";
 
         // constants
         var TOTAL_PAGE = 3;
@@ -61,12 +62,11 @@
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     try {
-                        var response = this.responseText;//returns json string
-                        var responseObject = JSON.parse(response);//returns json object
-                        for (var r = 0; r < responseObject.length; r++)//returns a single line of json object and has regions,sales area and clusters
-                         {
+                        var response = this.responseText;
+                        var responseObject = JSON.parse(response);
+                        for (var r = 0; r < responseObject.length; r++) {
                             var currentObject = responseObject[r];
-                            var region = currentObject.Region;//returns the 1st object only
+                            var region = currentObject.Region;
                             if (array.indexOf(region) == -1) {
                                 array.push(region);
                                 select += '<option value="' + region + '">' + region + '</option>';
@@ -75,40 +75,43 @@
                         document.getElementById("Region").innerHTML = select;
                         document.getElementById("Region").addEventListener("change", function (
                             e) {
-                            var select1 = '<option value="">-Pick a Sales-</option>';
-                            var selectedRegion = e.target.value;
-                            var salesAreaArray = [];
+                            var selectSales = '<option value="">-Pick A Sales Area-</option>';
+                            var d = e.target.value;
+                            var sales = [];
                             for (let i = 0; i < responseObject.length; i++) {
-                                if (selectedRegion == responseObject[i].Region) {
-                                    var uniqueSalesArea = responseObject[i].Sales_Area;
-                                    if (salesAreaArray.indexOf(uniqueSalesArea) == -1) {
-                                        salesAreaArray.push(uniqueSalesArea);
-                                        select1 += '<option value="' + uniqueSalesArea + '">' + uniqueSalesArea +
+                                if (d == responseObject[i].Region) {
+                                    var a = responseObject[i].Sales_Area;
+                                    if (sales.indexOf(a) == -1) {
+                                        sales.push(a);
+                                        selectSales += '<option value="' + a + '">' + a +
                                             '</option>';
                                     }
+
                                 }
                             }
-                            document.getElementById("salesArea").innerHTML = select1;
+                            document.getElementById("salesArea").innerHTML = selectSales;
 
                             document.getElementById("salesArea").addEventListener("change",
-                                function (g) {
-                                    var select2 = '<option value="">-Pick a Cluster-</option>';
-                                    var selectedSalesArea = g.target.value;
-                                    var clusterArray = [];
-                                    for (let j = 0; j < responseObject.length; j++) {
-                                        if (selectedSalesArea == responseObject[j].Sales_Area) {
-                                            var uniqueCluster = responseObject[j].Cluster;
-                                            if (clusterArray.indexOf(uniqueCluster) == -1) {
-                                                clusterArray.push(uniqueCluster);
-                                                select2 += '<option value="' + uniqueCluster +
-                                                    '">' + uniqueCluster +
+                                function (e) {
+                                    var selectCluster =
+                                        '<option value="">-Pick A Sales Area-</option>';
+                                    var Sales_Area = e.target.value;
+                                    var clusterArr = [];
+                                    for (let i = 0; i < responseObject.length; i++) {
+                                        if (Sales_Area == responseObject[i].Sales_Area) {
+                                            var cluster = responseObject[i].Cluster;
+                                            if (clusterArr.indexOf(cluster) == -1) {
+                                                clusterArr.push(cluster);
+                                                selectCluster += '<option value="' + cluster +
+                                                    '">' + cluster +
                                                     '</option>';
                                             }
                                         }
 
                                     }
+
                                     document.getElementById("cluster").innerHTML =
-                                        select2;
+                                        selectCluster;
                                 });
                         });
                     } catch (e) {
@@ -120,9 +123,33 @@
             };
             xhttp.open("GET", url, true);
             xhttp.send();
+
         }
 
+        function JoinedOrNot() {
+            var kenya = document.getElementById("Region");
+            if (kenya.value == "Coast") {
+                _regionArea = 1;
+
+            } else if (kenya.value == "Mt kenya") {
+                _regionArea = 2;
+
+            } else if (kenya.value == "nairobi east") {
+                _regionArea = 3;
+
+            } else if (kenya.value == "nairobi west") {
+                _regionArea = 4;
+
+            } else if (kenya.value == "rift") {
+
+            } else {
+
+            }
+        }
+
+
         function onPageLoad() {
+
             // Register for Android h/w back press event
             KASClient.App.registerHardwareBackPressCallback(function () {
                 KASClient.App.dismissCurrentScreen();
@@ -252,6 +279,7 @@
             questionToAnswerMap[count] = JSON.stringify(_currentLocation);
             count++;
             questionToAnswerMap[count] = (new Date()).getTime();
+            alert(JSON.stringify(questionToAnswerMap));
             // Finally submit the response
             KASClient.Form.sumbitFormResponse(questionToAnswerMap, null, false, true /* showInChatCanvas */ );
         }
@@ -338,7 +366,7 @@
                 let fieldType = fieldDescription["type"];
                 let optional = fieldDescription["isResponseOptional"];
                 let fieldInputType = "";
-                let compressedTitle = fieldTitle.replace(/\s+/g, '');//returning id as fielddescription without space eg id for regions is Region
+                let compressedTitle = fieldTitle.replace(/\s+/g, '');
 
                 switch (fieldType) {
                     case 0:
@@ -460,6 +488,7 @@
                             fieldInput.innerHTML = "<option>-Pick A Region-</option>";
 
                             fieldInput.addEventListener("change", function (event) {
+                                JoinedOrNot();
                                 invalidateFooter();
                             });
 
@@ -476,13 +505,14 @@
                                 });
                             }
 
-                            fieldInput.innerHTML = "<option>-Pick A Sales Area-</option>";
+                            fieldInput.innerHTML = "<select><option>-Pick A Sales Area-</option></select>";
 
                             fieldInput.addEventListener("change", function (event) {
                                 invalidateFooter();
                             });
                         } else if (fieldTitle == "cluster") {
                             var fieldInput = KASClient.UI.getElement("select");
+                            fieldInput.type = fieldInputType;
                             fieldInput.className = "comment-input";
                             fieldInput.id = compressedTitle;
 
@@ -493,7 +523,7 @@
                                 });
                             }
 
-                            fieldInput.innerHTML = "<option>-Pick A Cluster-</option>";
+                            fieldInput.innerHTML = "<select><option>-Pick A Cluster-</option></select>";
 
                             fieldInput.addEventListener("change", function (event) {
                                 invalidateFooter();

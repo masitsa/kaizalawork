@@ -1,0 +1,42 @@
+{
+	"title": "Buyer",
+	"visibility": "All",
+	"expiry": 0,
+	"isAnonymous": false,
+	"isResponseAppended": true,
+	"isLocationRequested": false,
+	"questions": [
+		{
+			"title": "Brand",
+			"type": "Text"
+		},
+		{
+			"title": "Model",
+			"type": "Text"
+		},
+		{
+			"title": "Name",
+			"type": "Text"
+		},
+		{
+			"title": "CarImage",
+			"type": "image"
+		},
+		{
+			"title": "Price",
+			"type": "text"
+		},
+		{
+			"title": "Phone",
+			"type": "Text"
+		},
+		{
+			"title": "Location",
+			"type": "Location"
+		},
+		{
+			"title": "Response Time",
+			"type": "DateTime"
+		}
+	]
+}
